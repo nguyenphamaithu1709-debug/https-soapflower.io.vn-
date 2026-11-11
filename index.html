@@ -536,16 +536,13 @@
 
         <!-- Khung Form Đặt Hàng -->
         <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-[#DAC9B7] shadow-md">
-          <form name="don-hang-bibi-flower" method="POST" data-netlify="true" onsubmit="handleOrderSubmit(event)" class="space-y-4">
-            <!-- Thẻ ẩn bắt buộc để Netlify nhận diện tên form -->
-             <input type="hidden" name="form-name" value="don-hang-bibi-flower" />
+          <form onsubmit="handleOrderSubmit(event)" class="space-y-4">
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Họ và tên của bạn *</label>
                 <input 
                   type="text" 
-                  name="ho_ten"
                   required 
                   placeholder="Ví dụ: Nguyễn Văn A"
                   class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
@@ -554,8 +551,7 @@
               <div>
                 <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Số điện thoại nhận hàng *</label>
                 <input 
-                  type="tel"
-                  name="so_dien_thoai" 
+                  type="tel" 
                   required 
                   placeholder="Ví dụ: 0345573574"
                   class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
@@ -567,7 +563,6 @@
               <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Địa chỉ giao hàng *</label>
               <input 
                 type="text" 
-                name="dia_chi"
                 required 
                 placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
                 class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
@@ -576,7 +571,7 @@
 
             <div>
               <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Danh mục / Mẫu hoa bạn quan tâm *</label>
-              <select name="mau_hoa" class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition">
+              <select class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition">
                 <option value="cat1">Danh mục: Bó Hoa 1 - 3 Bông (Mini)</option>
                 <option value="cat2" selected>Danh mục: Hoa Sáp & Hoa Lụa Cao Cấp</option>
                 <option value="cat3">Danh mục: Hoa Bánh Kẹo & Quà Tặng</option>
@@ -592,7 +587,6 @@
               <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Nội dung ghi trên thiệp chúc mừng (nếu có)</label>
               <textarea 
                 rows="2" 
-                name="loi_chuc"
                 placeholder="Ví dụ: Chúc mừng sinh nhật, chúc bạn luôn vui vẻ và hạnh phúc..."
                 class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
               ></textarea>
@@ -620,34 +614,6 @@
             <p class="text-xs text-[#63534B] mt-1">Bibi Flower đã áp dụng voucher giảm 15% - 20% cho bạn và sẽ gọi điện qua số điện thoại trên trong ít phút.</p>
           </div>
 
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== PHẦN 7: GOOGLE FORM KHẢO SÁT NHU CẦU ==================== -->
-    <section id="khao-sat" class="py-12 sm:py-20 bg-[#F3ECE2] border-t border-[#E3D4C4]">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6">
-
-        <div class="text-center space-y-2 mb-8">
-          <div class="inline-block bg-[#8C5D33] text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-2">
-            Nhận Ưu Đãi & Tư Vấn
-          </div>
-          <h2 class="font-serif-luxury text-2xl sm:text-4xl text-[#332722] font-semibold balance-text">
-            Khách Ơi, Chia Sẻ Nhu Cầu Với Bibi Flower Nha
-          </h2>
-          <p class="text-[#6D5D55] text-xs sm:text-sm max-w-md mx-auto balance-text">
-            Khách điền giúp em vài câu ngắn để em tư vấn đúng mẫu hoa và gửi ưu đãi cho khách nha. Thông tin chỉ dùng để liên hệ tư vấn thôi ạ.
-          </p>
-        </div>
-
-        <div class="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-[#DAC9B7] shadow-md">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLScH0SLl-8MRoR-9JdC9gs8g8GgSMmuxUe6HjLW3x3DOD90QCg/viewform?embedded=true"
-            title="Form nhận ưu đãi và tư vấn Bibi Flower"
-            style="width:100%;height:1650px;border:0;"
-            loading="lazy"
-            frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
         </div>
 
       </div>
@@ -720,32 +686,12 @@
   <script>
     function handleOrderSubmit(event) {
       event.preventDefault();
-      const myForm = event.target;
-      const formData = new FormData(myForm);
-
-      fetch("/", {
-       method: "POST",
-       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-       body: new URLSearchParams(formData).toString()
-      })
-       .then(() => {
-        // Hiện bảng thông báo thành công màu cam ngay trên web
-       const successDiv = document.getElementById('orderSuccessMessage');
-       if (successDiv) {
-          successDiv.classList.remove('hidden');
-          successDiv.scrollIntoView({ behavior: 'smooth' });
-        }
-        myForm.reset(); // Xóa sạch ô nhập sau khi gửi xong
-      })
-      .catch((error) => {
-        alert("Có lỗi xảy ra khi gửi đơn, vui lòng thử lại!");
-        console.error(error);
-      });
-      }
+      const successDiv = document.getElementById('orderSuccessMessage');
       if (successDiv) {
         successDiv.classList.remove('hidden');
         successDiv.scrollIntoView({ behavior: 'smooth' });
       }
+    }
   </script>
 
 </body>
