@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Bibi Flower - Chuyên sỉ & lẻ Hoa Sáp, Hoa Lụa</title>
+  
+  <!-- Tailwind CSS Engine -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --bg-warm: #FAF6F0;
+      --bg-card: #FFFFFF;
+      --bg-cream: #F3ECE2;
+      --text-main: #332722;
+      --text-muted: #7A6C65;
+      --primary-caramel: #B78353;
+      --primary-hover: #A16F41;
+      --border-warm: #EADBCC;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-warm);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .font-serif-luxury {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    /* Chống lỗi rơi chữ (widows) */
+    .balance-text {
+      text-wrap: balance;
+    }
+
+    /* Hiệu ứng hover thẻ sản phẩm */
+    .product-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    @media (hover: hover) {
+      .product-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 28px -8px rgba(87, 59, 39, 0.12);
+      }
+    }
+
+    .btn-caramel {
+      background-color: var(--primary-caramel);
+      color: #FFFFFF;
+      transition: all 0.25s ease;
+    }
+    .btn-caramel:hover {
+      background-color: var(--primary-hover);
+      box-shadow: 0 6px 18px -4px rgba(183, 131, 83, 0.4);
+    }
+    .btn-caramel:active {
+      transform: scale(0.98);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-[#B78353] selection:text-white">
+
+  <!-- ==================== HEADER: THƯƠNG HIỆU & DÒNG CHỮ CĂN TRÁI ==================== -->
+  <header class="py-5 px-4 sm:px-6 max-w-6xl mx-auto border-b border-[#EADBCC]/60">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      
+      <!-- Tên thương hiệu: Bibi Flower (Căn trái) -->
+      <a href="#" class="flex items-center gap-2.5 text-left">
+        <div class="w-8 h-8 rounded-full bg-[#EADBCC] flex items-center justify-center text-[#B78353] shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 01-9-9c0-4.97 4.03-9 9-9s9 4.03 9 9a9 9 0 01-9 9zm0-14c-2.21 0-4 1.79-4 4 0 2.5 4 7 4 7s4-4.5 4-7c0-2.21-1.79-4-4-4z"/>
+          </svg>
+        </div>
+        <div>
+          <span class="font-serif-luxury text-2xl sm:text-3xl tracking-[0.16em] font-bold text-[#332722] uppercase block leading-none">Bibi Flower</span>
+          <span class="text-[10px] tracking-[0.2em] text-[#8C7A70] uppercase">Floral Atelier</span>
+        </div>
+      </a>
+
+      <!-- Dòng chữ: Chuyên sỉ & lẻ Hoa Sáp, Hoa Lụa (Căn trái) -->
+      <div class="text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFE5D8] border border-[#E3D3C2] text-[#8C5D33] text-[11px] sm:text-xs font-semibold tracking-wider uppercase">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#B78353]"></span>
+          Chuyên sỉ & lẻ Hoa Sáp, Hoa Lụa
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ==================== PHẦN 1: HERO SECTION (CĂN GIỮA TOÀN BỘ) ==================== -->
+    <section class="relative pt-10 pb-12 sm:pt-14 sm:pb-20 overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+        
+        <!-- H1 Tiêu Đề Chính: CĂN GIỮA, 2 DÒNG -->
+        <h1 class="font-serif-luxury text-[32px] sm:text-5xl md:text-6xl text-[#332722] font-semibold tracking-tight leading-[1.18] sm:leading-[1.15] mb-5">
+          <span class="block">Gói Trọn Yêu Thương</span>
+          <span class="block italic font-normal text-[#8A5B35]">Vẹn Nguyên Cùng Năm Tháng</span>
+        </h1>
+
+        <!-- H2 Đoạn Văn Mô Tả: CĂN GIỮA, KHÔNG RƠI RỚT CHỮ -->
+        <p class="text-[#6D5D55] text-sm sm:text-base md:text-lg leading-relaxed max-w-xl mx-auto font-normal balance-text mb-7 px-2">
+          Hoa sáp thơm nghệ thuật cao cấp: Đẹp tự nhiên như hoa thật, hương thơm dịu nhẹ thư thái và lưu giữ kỷ niệm bền đẹp từ 3 đến 5 năm.
+        </p>
+
+        <!-- Khối Nút Bấm Chính Căn Giữa (Voucher Giảm 15-20%) -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 max-w-md mx-auto w-full px-2">
+          <a href="#dat-hang" class="btn-caramel w-full sm:w-auto text-center font-semibold px-8 py-3.5 rounded-full text-sm sm:text-base inline-flex items-center justify-center gap-2 shadow-sm min-h-[46px]">
+            <span>Đặt Hoa – Nhận Giảm 15% - 20%</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="#danh-muc" class="w-full sm:w-auto text-center font-medium px-6 py-3.5 rounded-full text-sm sm:text-base border border-[#CDBEAF] text-[#55463E] bg-white/70 hover:bg-[#EADBCC]/50 transition min-h-[46px] flex items-center justify-center">
+            Xem Danh Mục Sản Phẩm
+          </a>
+        </div>
+
+        <!-- Khung Ảnh Hero: ẢNH THỰC TẾ BÓ HOA SÁP SHOP ĐÃ LÀM -->
+        <div class="mt-10 sm:mt-12 max-w-3xl mx-auto px-1 sm:px-4">
+          <div class="aspect-[4/3] sm:aspect-[16/9] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#F2EAE0] border-4 border-white shadow-xl relative group">
+            <img 
+              src="images/hero-bouquet.jpg" 
+              alt="Dàn bó hoa sáp thành phẩm"
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500"
+            />
+            
+            <!-- Badge Nổi Trên Ảnh -->
+            <div class="absolute bottom-3 left-3 right-3 sm:bottom-5 sm:left-6 sm:right-auto bg-white/95 backdrop-blur-sm p-3 sm:p-3.5 rounded-xl sm:rounded-2xl border border-[#EADBCC] shadow-md flex items-center gap-3 text-left">
+              <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#FAF3EB] text-[#B78353] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-xs sm:text-sm text-[#332722]">100% Ảnh Chụp Thật Sản Phẩm</h4>
+                <p class="text-[11px] text-[#7A6C65]">Từng cánh hoa mềm mịn, hương thơm dịu mát</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 2: DANH MỤC PHÂN LOẠI SẢN PHẨM ==================== -->
+    <section id="danh-muc" class="py-12 sm:py-16 bg-[#F3ECE2] border-y border-[#E4D7C8]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="text-center max-w-xl mx-auto mb-8 sm:mb-12">
+          <span class="text-[11px] sm:text-xs uppercase tracking-widest text-[#B78353] font-semibold">Danh Mục Sản Phẩm</span>
+          <h2 class="font-serif-luxury text-2xl sm:text-4xl text-[#332722] font-semibold mt-1">
+            Bộ Sưu Tập Theo Từng Nhu Cầu
+          </h2>
+          <p class="text-[#72625A] text-xs sm:text-sm mt-2 balance-text">
+            Khám phá dòng sản phẩm chủ đạo được thiết kế thủ công tinh xảo.
+          </p>
+        </div>
+
+        <!-- 3 Thẻ Danh Mục Chuyên Biệt -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
+          
+          <!-- Danh mục 1: 1 - 3 Bông -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-[#E2D5C7] shadow-sm flex flex-col justify-between group hover:border-[#B78353] transition">
+            <div>
+              <div class="aspect-[4/3] rounded-xl overflow-hidden bg-[#FAF6F0] mb-3.5 relative">
+                <img src="images/cat-mini-1-3-bong.jpg" alt="Bó hoa sáp 1 - 3 bông mini" class="w-full h-full object-cover group-hover:scale-105 transition duration-300"/>
+                <span class="absolute top-2 left-2 bg-[#8C5D33] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Nhỏ Xinh</span>
+              </div>
+              <h3 class="font-serif-luxury text-xl sm:text-2xl text-[#332722] font-semibold">Bó Hoa 1 - 3 Bông</h3>
+              <p class="text-xs text-[#7A6C65] mt-1.5 leading-relaxed">
+                Thiết kế mini tinh gọn, thanh lịch. Cực kỳ phù hợp tặng sự kiện, lễ tốt nghiệp, học sinh - sinh viên hoặc đặt số lượng nhiều.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#F3ECE2] flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+              <a href="#dat-hang" class="text-xs btn-caramel px-3.5 py-1.5 rounded-full font-medium shadow-sm">Đặt Mẫu Này</a>
+            </div>
+          </div>
+
+          <!-- Danh mục 2: Hoa Sáp & Hoa Lụa -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border-2 border-[#B78353]/60 shadow-sm flex flex-col justify-between group relative">
+            <span class="absolute -top-2.5 right-4 bg-[#B78353] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow-sm">
+              ★ Yêu Thích Nhất
+            </span>
+            <div>
+              <div class="aspect-[4/3] rounded-xl overflow-hidden bg-[#FAF6F0] mb-3.5 relative">
+                <img src="images/cat-hoa-sap-lua.jpg" alt="Hoa sáp và hoa lụa nghệ thuật" class="w-full h-full object-cover group-hover:scale-105 transition duration-300"/>
+              </div>
+              <h3 class="font-serif-luxury text-xl sm:text-2xl text-[#332722] font-semibold">Hoa Sáp & Hoa Lụa</h3>
+              <p class="text-xs text-[#7A6C65] mt-1.5 leading-relaxed">
+                Bó hoa lớn và hộp quà phối hoa lụa cao cấp. Tạo hình sang trọng, hương thơm thư thái và giữ vẹn nguyên vẻ đẹp suốt 3 - 5 năm.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#F3ECE2] flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+              <a href="#dat-hang" class="text-xs btn-caramel px-3.5 py-1.5 rounded-full font-medium shadow-sm">Đặt Mẫu Này</a>
+            </div>
+          </div>
+
+          <!-- Danh mục 3: Hoa Bánh Kẹo -->
+          <div class="bg-white rounded-2xl p-4 sm:p-5 border border-[#E2D5C7] shadow-sm flex flex-col justify-between group hover:border-[#B78353] transition">
+            <div>
+              <div class="aspect-[4/3] rounded-xl overflow-hidden bg-[#FAF6F0] mb-3.5 relative">
+                <img src="images/cat-banh-keo.jpg" alt="Bó hoa bánh kẹo độc đáo" class="w-full h-full object-cover group-hover:scale-105 transition duration-300"/>
+                <span class="absolute top-2 left-2 bg-[#8C5D33] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">Độc Đáo</span>
+              </div>
+              <h3 class="font-serif-luxury text-xl sm:text-2xl text-[#332722] font-semibold">Hoa Bánh Kẹo & Quà Tặng</h3>
+              <p class="text-xs text-[#7A6C65] mt-1.5 leading-relaxed">
+                Ý tưởng quà tặng ngọt ngào, bất ngờ và độc đáo. Vừa đẹp mắt để lưu giữ khoảnh khắc, vừa thiết thực và ý nghĩa cho người nhận.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-[#F3ECE2] flex items-center justify-between">
+              <span class="text-xs font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+              <a href="#dat-hang" class="text-xs btn-caramel px-3.5 py-1.5 rounded-full font-medium shadow-sm">Đặt Mẫu Này</a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 3: VẤN ĐỀ HOA TƯƠI VS HOA SÁP ==================== -->
+    <section class="py-12 sm:py-20 bg-[#FAF7F2]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="text-center max-w-xl mx-auto mb-8 sm:mb-14">
+          <span class="text-[11px] sm:text-xs uppercase tracking-widest text-[#B78353] font-semibold">Giải Pháp Tặng Quà Tinh Tế</span>
+          <h2 class="font-serif-luxury text-2xl sm:text-4xl text-[#332722] font-semibold mt-1.5 balance-text">
+            Tại Sao Nên Chọn Hoa Sáp Thơm Thay Cho Hoa Tươi?
+          </h2>
+          <p class="text-[#72625A] text-xs sm:text-sm mt-2 balance-text">
+            Những băn khoăn khi mua hoa tươi sẽ hoàn toàn được giải tỏa với dòng hoa sáp cao cấp từ Bibi Flower.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 items-stretch">
+          
+          <!-- Hộp Nỗi Đau -->
+          <div class="bg-white/75 border border-[#EADBCC] rounded-2xl sm:rounded-3xl p-5 sm:p-8">
+            <div class="flex items-center gap-3 mb-4 sm:mb-6">
+              <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-red-50 text-red-600 flex items-center justify-center font-bold text-base sm:text-lg shrink-0">✕</span>
+              <h3 class="font-serif-luxury text-xl sm:text-2xl text-[#332722] font-semibold">Băn Khoăn Với Hoa Tươi</h3>
+            </div>
+            <ul class="space-y-3.5 text-xs sm:text-sm text-[#64554E]">
+              <li class="flex items-start gap-2.5">
+                <span class="text-red-500 mt-0.5 text-xs">●</span>
+                <div>
+                  <strong class="text-[#332722]">Chóng tàn sau 2-3 ngày:</strong> Chi nhiều tiền nhưng chỉ ngắm được vài hôm là héo úa, vứt đi thì xót xa và lãng phí kỷ niệm.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-red-500 mt-0.5 text-xs">●</span>
+                <div>
+                  <strong class="text-[#332722]">Giá tăng đột biến dịp lễ:</strong> Cận ngày lễ giá bị đẩy lên cao mà hoa lại dễ dập nát, thiếu sự tươi mới.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-red-500 mt-0.5 text-xs">●</span>
+                <div>
+                  <strong class="text-[#332722]">Bất tiện khi mang tặng:</strong> Cánh dễ rơi rụng, nước cắm tràn đổ làm hỏng thiệp và hộp quà đi kèm.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Hộp Giải Pháp -->
+          <div class="bg-[#FFFDF9] border-2 border-[#B78353]/50 rounded-2xl sm:rounded-3xl p-5 sm:p-8 relative shadow-sm">
+            <div class="flex items-center gap-3 mb-4 sm:mb-6">
+              <span class="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FAF3EB] text-[#B78353] flex items-center justify-center font-bold text-base sm:text-lg shrink-0">✓</span>
+              <h3 class="font-serif-luxury text-xl sm:text-2xl text-[#332722] font-semibold">Giải Pháp Từ Bibi Flower</h3>
+            </div>
+            <ul class="space-y-3.5 text-xs sm:text-sm text-[#5C4D46]">
+              <li class="flex items-start gap-2.5">
+                <span class="text-[#B78353] mt-0.5 text-xs">★</span>
+                <div>
+                  <strong class="text-[#332722]">Bền đẹp vĩnh cửu 3 - 5 năm:</strong> Cánh hoa mềm mịn như thật, giữ trọn sắc thắm trang trí bàn làm việc dài lâu.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-[#B78353] mt-0.5 text-xs">★</span>
+                <div>
+                  <strong class="text-[#332722]">Hương thơm tinh tế dịu nhẹ:</strong> Chiết xuất từ xà phòng thiên nhiên an toàn, tạo cảm giác thư giãn cho căn phòng.
+                </div>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-[#B78353] mt-0.5 text-xs">★</span>
+                <div>
+                  <strong class="text-[#332722]">Giữ form dáng hoàn hảo:</strong> Cành hoa cứng cáp, đóng gói chỉn chu, giao hoa an toàn và nguyên vẹn.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 4: REVIEW & CÁC MẪU HOA THẬT CỦA SHOP ==================== -->
+    <section id="bo-suu-tap" class="py-12 sm:py-20 bg-[#F5EFEB] border-t border-[#E6D9CB]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- CỘT TRÁI (Lg: 5 cột): Testimonials & Stats -->
+          <div class="lg:col-span-5 space-y-4 sm:space-y-6">
+            
+            <!-- Khối Đánh Giá Lớn -->
+            <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-[#E2D5C7] shadow-sm">
+              <div class="font-serif-luxury text-5xl text-[#D8BFA8] leading-none mb-1">“</div>
+              <p class="font-serif-luxury italic text-lg sm:text-2xl text-[#3A2D27] leading-relaxed balance-text">
+                Hoa bên ngoài đẹp ngoài sức mong đợi! Cánh hoa mềm sờ êm tay chứ không hề bị cứng. Hương thơm thoang thoảng rất dễ chịu, người yêu mình thích mê.
+              </p>
+              
+              <div class="flex items-center gap-1 text-[#C48C57] my-3 text-sm sm:text-base">
+                ★★★★★
+              </div>
+
+              <div class="flex items-center gap-3 pt-3 border-t border-[#F0E5D8]">
+                <div class="w-9 h-9 rounded-full bg-[#EFE4D6] flex items-center justify-center font-bold text-[#8C5D33] text-xs">
+                  MT
+                </div>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-semibold text-[#332722]">Minh Thư</h5>
+                  <span class="text-[11px] text-[#827167]">Khách hàng thân thiết</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bảng Thống Kê 3 Cột -->
+            <div class="bg-white rounded-2xl p-4 sm:p-6 border border-[#E2D5C7] shadow-sm grid grid-cols-3 gap-1 text-center">
+              <div>
+                <span class="block font-serif-luxury text-xl sm:text-3xl font-bold text-[#8C5D33]">100%</span>
+                <span class="block text-[11px] sm:text-xs font-semibold text-[#332722]">Ảnh Thật</span>
+                <span class="hidden sm:block text-[10px] text-[#86766D]">Chuẩn mẫu</span>
+              </div>
+              <div class="border-x border-[#EFE4D6]">
+                <span class="block font-serif-luxury text-xl sm:text-3xl font-bold text-[#8C5D33]">1 - 2 Giờ</span>
+                <span class="block text-[11px] sm:text-xs font-semibold text-[#332722]">Giao Hỏa Tốc</span>
+                <span class="hidden sm:block text-[10px] text-[#86766D]">Theo lịch hẹn</span>
+              </div>
+              <div>
+                <span class="block font-serif-luxury text-xl sm:text-3xl font-bold text-[#8C5D33]">3 - 5 Năm</span>
+                <span class="block text-[11px] sm:text-xs font-semibold text-[#332722]">Độ Bền Hoa</span>
+                <span class="hidden sm:block text-[10px] text-[#86766D]">Giữ nguyên sắc</span>
+              </div>
+            </div>
+
+            <!-- Khối Hình Ảnh Túi Quà Tặng Kèm Thực Tế -->
+            <div class="bg-white rounded-2xl p-4 border border-[#E2D5C7] shadow-sm flex items-center gap-3">
+              <div class="w-16 h-16 rounded-xl overflow-hidden bg-[#FAF6F0] shrink-0 border border-[#E2D5C7]">
+                <img src="images/gift-transparent-bag.jpg" alt="Túi quà tặng trong suốt thực tế" class="w-full h-full object-cover"/>
+              </div>
+              <div>
+                <span class="inline-block bg-[#8C5D33] text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Quà Tặng Kèm</span>
+                <h5 class="text-xs font-semibold text-[#332722] mt-0.5">Túi Xách Trong Suốt & Thiệp</h5>
+                <p class="text-[11px] text-[#7A6C65]">Tặng kèm miễn phí khi đặt hoa hôm nay</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- CỘT PHẢI (Lg: 7 cột): LƯỚI SẢN PHẨM 2x2 VỚI ẢNH THẬT CỦA SHOP -->
+          <div class="lg:col-span-7">
+            <div class="mb-4 sm:mb-6">
+              <span class="text-[11px] sm:text-xs uppercase tracking-widest text-[#B78353] font-semibold">Bộ Sưu Tập Tuyển Chọn</span>
+              <h3 class="font-serif-luxury text-2xl sm:text-3xl text-[#332722] font-semibold mt-1">Các Mẫu Hoa Được Yêu Thích Nhất</h3>
+            </div>
+
+            <!-- Lưới Sản Phẩm 2x2 -->
+            <div class="grid grid-cols-2 gap-3 sm:gap-5">
+              
+              <!-- Mẫu 1: Bó Hồng Sáp Pastel Cầm Tay -->
+              <div class="product-card bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-[#E2D5C7] flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-[#FAF6F0] mb-2.5 relative group">
+                    <img 
+                      src="images/product-bridal-pastel.jpg" 
+                      alt="Bó hoa sáp pastel cầm tay cô dâu và kỷ niệm" 
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    />
+                    <span class="absolute top-1.5 left-1.5 bg-white/90 text-[#8C5D33] text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded border border-[#E2D5C7]">Bán Chạy</span>
+                  </div>
+                  <h4 class="font-medium text-xs sm:text-base text-[#332722] line-clamp-1">Bó Hồng Sáp Pastel Cầm Tay</h4>
+                  <p class="text-[11px] text-[#7A6C65] mt-0.5 line-clamp-1">Tone trắng & hồng phấn kèm lá khuynh diệp</p>
+                </div>
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F3ECE2]">
+                  <span class="text-xs sm:text-sm font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+                  <a href="#dat-hang" class="text-xs bg-[#FAF3EB] text-[#8C5D33] hover:bg-[#8C5D33] hover:text-white px-2.5 py-1 rounded-full font-medium transition">Tư Vấn</a>
+                </div>
+              </div>
+
+              <!-- Mẫu 2: Bó Hoa Sáp Trái Tim Lãng Mạn (Khổng Lồ) -->
+              <div class="product-card bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border-2 border-[#B78353]/50 flex flex-col justify-between relative shadow-sm">
+                <span class="absolute -top-2 right-2 bg-[#B78353] text-white text-[9px] sm:text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-sm">
+                  ★ Mẫu Hot
+                </span>
+                <div>
+                  <div class="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-[#FAF6F0] mb-2.5 relative group">
+                    <img 
+                      src="images/product-heart-red.jpg" 
+                      alt="Bó hoa sáp hình trái tim phủ nhũ lấp lánh" 
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    />
+                    <span class="absolute bottom-1.5 left-1.5 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded">Phủ Nhũ Lấp Lánh</span>
+                  </div>
+                  <h4 class="font-medium text-xs sm:text-base text-[#332722] line-clamp-1">Bó Hoa Sáp Trái Tim Lãng Mạn</h4>
+                  <p class="text-[11px] text-[#7A6C65] mt-0.5 line-clamp-1">Tạo hình trái tim hoa hồng đỏ kiêu sa</p>
+                </div>
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F3ECE2]">
+                  <span class="text-xs sm:text-sm font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+                  <a href="#dat-hang" class="text-xs bg-[#8C5D33] text-white hover:bg-[#724a27] px-2.5 py-1 rounded-full font-medium transition">Tư Vấn</a>
+                </div>
+              </div>
+
+              <!-- Mẫu 3: Bó Hoa Sáp Vương Miện Hoàng Gia -->
+              <div class="product-card bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-[#E2D5C7] flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-[#FAF6F0] mb-2.5 relative group">
+                    <img 
+                      src="images/product-crown-royal.jpg" 
+                      alt="Bó hoa sáp vương miện hoàng gia quý phái" 
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    />
+                    <span class="absolute top-1.5 left-1.5 bg-white/90 text-[#8C5D33] text-[9px] sm:text-[10px] font-bold px-1.5 py-0.5 rounded border border-[#E2D5C7]">Vương Miện</span>
+                  </div>
+                  <h4 class="font-medium text-xs sm:text-base text-[#332722] line-clamp-1">Bó Hoa Vương Miện Hoàng Gia</h4>
+                  <p class="text-[11px] text-[#7A6C65] mt-0.5 line-clamp-1">Đính vương miện ngọc & bướm dạ quang</p>
+                </div>
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F3ECE2]">
+                  <span class="text-xs sm:text-sm font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+                  <a href="#dat-hang" class="text-xs bg-[#FAF3EB] text-[#8C5D33] hover:bg-[#8C5D33] hover:text-white px-2.5 py-1 rounded-full font-medium transition">Tư Vấn</a>
+                </div>
+              </div>
+
+              <!-- Mẫu 4: Bó Hồng Sáp Phối Lưới Ren Hàn Quốc -->
+              <div class="product-card bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-[#E2D5C7] flex flex-col justify-between">
+                <div>
+                  <div class="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-[#FAF6F0] mb-2.5 relative group">
+                    <img 
+                      src="images/product-pastel-mesh.jpg" 
+                      alt="Bó hồng sáp phối lưới ren bồng bềnh phong cách Hàn Quốc" 
+                      class="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                    />
+                  </div>
+                  <h4 class="font-medium text-xs sm:text-base text-[#332722] line-clamp-1">Bó Hồng Sáp Nơ Lưới Ren</h4>
+                  <p class="text-[11px] text-[#7A6C65] mt-0.5 line-clamp-1">Thiết kế ren bồng bềnh nhẹ nhàng tinh tế</p>
+                </div>
+                <div class="flex items-center justify-between mt-2 pt-2 border-t border-[#F3ECE2]">
+                  <span class="text-xs sm:text-sm font-semibold text-[#8C5D33]">Ưu Đãi Giảm 15-20%</span>
+                  <a href="#dat-hang" class="text-xs bg-[#FAF3EB] text-[#8C5D33] hover:bg-[#8C5D33] hover:text-white px-2.5 py-1 rounded-full font-medium transition">Tư Vấn</a>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 5: CAM KẾT AN TÂM ==================== -->
+    <section class="py-10 sm:py-14 bg-[#FAF6F0]">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-6 sm:mb-10">
+          <span class="text-[11px] sm:text-xs uppercase tracking-widest text-[#B78353] font-semibold">An Tâm Mua Sắm</span>
+          <h3 class="font-serif-luxury text-2xl sm:text-3xl text-[#332722] font-semibold mt-1">Cam Kết Từ Bibi Flower</h3>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+          
+          <div class="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-[#EADBCC] text-center space-y-1.5">
+            <div class="w-10 h-10 mx-auto rounded-full bg-[#FAF3EB] text-[#8C5D33] flex items-center justify-center text-lg font-bold">
+              🔍
+            </div>
+            <h4 class="font-semibold text-xs sm:text-sm text-[#332722]">Đồng Kiểm Khi Nhận</h4>
+            <p class="text-[11px] sm:text-xs text-[#7A6C65]">Kiểm tra ưng ý mới thanh toán cho shipper.</p>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-[#EADBCC] text-center space-y-1.5">
+            <div class="w-10 h-10 mx-auto rounded-full bg-[#FAF3EB] text-[#8C5D33] flex items-center justify-center text-lg font-bold">
+              🔄
+            </div>
+            <h4 class="font-semibold text-xs sm:text-sm text-[#332722]">1 Đổi 1 Trong 48h</h4>
+            <p class="text-[11px] sm:text-xs text-[#7A6C65]">Đổi mới miễn phí nếu hoa bị móp méo khi vận chuyển.</p>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-[#EADBCC] text-center space-y-1.5">
+            <div class="w-10 h-10 mx-auto rounded-full bg-[#FAF3EB] text-[#8C5D33] flex items-center justify-center text-lg font-bold">
+              📷
+            </div>
+            <h4 class="font-semibold text-xs sm:text-sm text-[#332722]">Ảnh Thật 100%</h4>
+            <p class="text-[11px] sm:text-xs text-[#7A6C65]">Hình ảnh tự chụp thật.</p>
+          </div>
+
+          <div class="bg-white p-4 sm:p-5 rounded-xl sm:rounded-2xl border border-[#EADBCC] text-center space-y-1.5">
+            <div class="w-10 h-10 mx-auto rounded-full bg-[#FAF3EB] text-[#8C5D33] flex items-center justify-center text-lg font-bold">
+              ✍️
+            </div>
+            <h4 class="font-semibold text-xs sm:text-sm text-[#332722]">Viết Thiệp Miễn Phí</h4>
+            <p class="text-[11px] sm:text-xs text-[#7A6C65]">Nắn nót viết lời chúc theo đúng yêu cầu của bạn.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 6: FORM ĐẶT HÀNG & NHẬN GIẢM 15% - 20% ==================== -->
+    <section id="dat-hang" class="py-12 sm:py-20 bg-[#EFE8DD] border-t border-[#E3D4C4]">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+        
+        <!-- Header Lời Kêu Gọi (Voucher Giảm 15% - 20%) -->
+        <div class="text-center space-y-2 mb-8">
+          <div class="inline-block bg-[#8C5D33] text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-2">
+            Ưu Đãi Đặc Biệt Hôm Nay
+          </div>
+          <h2 class="font-serif-luxury text-2xl sm:text-4xl text-[#332722] font-semibold balance-text">
+            Sẵn Sàng Gửi Trao Món Quà Ý Nghĩa?
+          </h2>
+          <p class="text-[#6D5D55] text-xs sm:text-sm max-w-md mx-auto balance-text">
+            Đặt hoa hôm nay để nhận ngay <strong>Voucher giảm 15% - 20%</strong> cùng bộ quà tặng túi xách trong suốt và thiệp chúc mừng!
+          </p>
+        </div>
+
+        <!-- Khung Form Đặt Hàng -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-[#DAC9B7] shadow-md">
+          <form name="don-hang-bibi-flower" method="POST" data-netlify="true" onsubmit="handleOrderSubmit(event)" class="space-y-4">
+            <!-- Thẻ ẩn bắt buộc để Netlify nhận diện tên form -->
+             <input type="hidden" name="form-name" value="don-hang-bibi-flower" />
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Họ và tên của bạn *</label>
+                <input 
+                  type="text" 
+                  name="ho_ten"
+                  required 
+                  placeholder="Ví dụ: Nguyễn Văn A"
+                  class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
+                />
+              </div>
+              <div>
+                <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Số điện thoại nhận hàng *</label>
+                <input 
+                  type="tel"
+                  name="so_dien_thoai" 
+                  required 
+                  placeholder="Ví dụ: 0345573574"
+                  class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Địa chỉ giao hàng *</label>
+              <input 
+                type="text" 
+                name="dia_chi"
+                required 
+                placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
+                class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
+              />
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Danh mục / Mẫu hoa bạn quan tâm *</label>
+              <select name="mau_hoa" class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition">
+                <option value="cat1">Danh mục: Bó Hoa 1 - 3 Bông (Mini)</option>
+                <option value="cat2" selected>Danh mục: Hoa Sáp & Hoa Lụa Cao Cấp</option>
+                <option value="cat3">Danh mục: Hoa Bánh Kẹo & Quà Tặng</option>
+                <option value="p1">Bó Hồng Sáp Pastel Cầm Tay (Tone Trắng Hồng)</option>
+                <option value="p2">Bó Hoa Sáp Trái Tim Tình Yêu (Hoa hồng đỏ nhũ)</option>
+                <option value="p3">Bó Hoa Sáp Vương Miện Hoàng Gia</option>
+                <option value="p4">Bó Hồng Sáp Nơ Lưới Ren Hàn Quốc</option>
+                <option value="custom">Tư vấn thiết kế mẫu hoa riêng theo sở thích</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Nội dung ghi trên thiệp chúc mừng (nếu có)</label>
+              <textarea 
+                rows="2" 
+                name="loi_chuc"
+                placeholder="Ví dụ: Chúc mừng sinh nhật, chúc bạn luôn vui vẻ và hạnh phúc..."
+                class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
+              ></textarea>
+            </div>
+
+            <!-- Nút Submit Lớn -->
+            <button 
+              type="submit" 
+              class="w-full btn-caramel py-3.5 sm:py-4 px-6 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold tracking-wide uppercase shadow-md flex items-center justify-center gap-2 mt-2"
+            >
+              <span>Xác Nhận Đặt Hàng – Nhận Giảm 15% - 20%</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+
+            <p class="text-center text-[11px] text-[#8C7A70] pt-1">
+              🔒 Thông tin được bảo mật hoàn toàn. Bibi Flower sẽ liên hệ tư vấn và gửi ảnh chi tiết cho bạn!
+            </p>
+
+          </form>
+
+          <!-- Thông báo thành công -->
+          <div id="orderSuccessMessage" class="hidden mt-4 p-4 rounded-xl bg-[#FAF3EB] border border-[#B78353] text-center">
+            <span class="text-2xl">🎉</span>
+            <h4 class="font-semibold text-[#8C5D33] text-sm sm:text-base mt-1">Đã Gửi Yêu Cầu Thành Công!</h4>
+            <p class="text-xs text-[#63534B] mt-1">Bibi Flower đã áp dụng voucher giảm 15% - 20% cho bạn và sẽ gọi điện qua số điện thoại trên trong ít phút.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 7: GOOGLE FORM KHẢO SÁT NHU CẦU ==================== -->
+    <section id="khao-sat" class="py-12 sm:py-20 bg-[#F3ECE2] border-t border-[#E3D4C4]">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <div class="text-center space-y-2 mb-8">
+          <div class="inline-block bg-[#8C5D33] text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-2">
+            Nhận Ưu Đãi & Tư Vấn
+          </div>
+          <h2 class="font-serif-luxury text-2xl sm:text-4xl text-[#332722] font-semibold balance-text">
+            Khách Ơi, Chia Sẻ Nhu Cầu Với Bibi Flower Nha
+          </h2>
+          <p class="text-[#6D5D55] text-xs sm:text-sm max-w-md mx-auto balance-text">
+            Khách điền giúp em vài câu ngắn để em tư vấn đúng mẫu hoa và gửi ưu đãi cho khách nha. Thông tin chỉ dùng để liên hệ tư vấn thôi ạ.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-[#DAC9B7] shadow-md">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScH0SLl-8MRoR-9JdC9gs8g8GgSMmuxUe6HjLW3x3DOD90QCg/viewform?embedded=true"
+            title="Form nhận ưu đãi và tư vấn Bibi Flower"
+            style="width:100%;height:1650px;border:0;"
+            loading="lazy"
+            frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-[#FAF6F0] border-t border-[#EADBCC] py-10 text-[#6D5D55]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        
+        <!-- Cột 1: Thương hiệu -->
+        <div class="space-y-2">
+          <span class="font-serif-luxury text-xl tracking-[0.16em] font-bold text-[#332722] uppercase">Bibi Flower</span>
+          <p class="text-xs leading-relaxed text-[#7A6C65]">
+            Mỗi bó hoa sáp được tạo nên bằng cả tâm huyết thủ công, lưu giữ trọn vẹn vẻ đẹp và tình cảm theo năm tháng.
+          </p>
+        </div>
+
+        <!-- Cột 2: Danh Mục Sản Phẩm Mới -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#332722] mb-2">Bộ Sưu Tập Mẫu</h4>
+          <ul class="space-y-1.5 text-xs">
+            <li><a href="#danh-muc" class="hover:text-[#B78353] transition">Bó Hoa 1 - 3 Bông</a></li>
+            <li><a href="#danh-muc" class="hover:text-[#B78353] transition">Hoa Sáp & Hoa Lụa</a></li>
+            <li><a href="#danh-muc" class="hover:text-[#B78353] transition">Hoa Bánh Kẹo & Quà Tặng</a></li>
+          </ul>
+        </div>
+
+        <!-- Cột 3: Chính sách -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#332722] mb-2">Chính Sách Bán Hàng</h4>
+          <ul class="space-y-1.5 text-xs">
+            <li>Đồng kiểm trước khi thanh toán</li>
+            <li>Đổi mới 1-1 trong 48h nếu lỗi</li>
+            <li>Tư vấn và viết thiệp chu đáo</li>
+          </ul>
+        </div>
+
+        <!-- Cột 4: LIÊN HỆ DUY NHẤT SỐ ĐIỆN THOẠI 0345573574 -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-[#332722] mb-2">Liên Hệ</h4>
+          <a href="tel:0345573574" class="text-lg sm:text-xl font-bold text-[#8C5D33] hover:underline block tracking-wider">
+            SĐT/Zalo: 0345573574
+          </a>
+        </div>
+
+      </div>
+
+      <div class="pt-6 border-t border-[#EADBCC] text-center text-[11px] text-[#9B8C83]">
+        © 2026 Bibi Flower. 100% Ảnh chụp thật.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== NÚT GỌI ĐIỆN & ĐẶT HOA NỔI DƯỚI GÓC ==================== -->
+  <div class="fixed bottom-4 right-4 z-50 flex items-center gap-2">
+    <!-- Nút gọi hotline 0345573574 -->
+    <a href="tel:0345573574" class="bg-[#B78353] hover:bg-[#A16F41] text-white px-3.5 py-3 rounded-full shadow-lg flex items-center gap-1.5 text-xs font-semibold tracking-wide transition active:scale-95" title="Gọi ngay 0345573574">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      <span>SĐT/Zalo: 0345573574</span>
+    </a>
+    <!-- Nút Nhận Giảm 15-20% -->
+    <a href="#dat-hang" class="bg-[#332722] hover:bg-[#1f1714] text-white px-3.5 py-3 rounded-full shadow-lg text-xs font-semibold tracking-wide transition active:scale-95 hidden sm:inline-block">
+      <span>Giảm 15% - 20%</span>
+    </a>
+  </div>
+
+  <script>
+    function handleOrderSubmit(event) {
+      event.preventDefault();
+      const myForm = event.target;
+      const formData = new FormData(myForm);
+
+      fetch("/", {
+       method: "POST",
+       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+       body: new URLSearchParams(formData).toString()
+      })
+       .then(() => {
+        // Hiện bảng thông báo thành công màu cam ngay trên web
+       const successDiv = document.getElementById('orderSuccessMessage');
+       if (successDiv) {
+          successDiv.classList.remove('hidden');
+          successDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        myForm.reset(); // Xóa sạch ô nhập sau khi gửi xong
+      })
+      .catch((error) => {
+        alert("Có lỗi xảy ra khi gửi đơn, vui lòng thử lại!");
+        console.error(error);
+      });
+      }
+      if (successDiv) {
+        successDiv.classList.remove('hidden');
+        successDiv.scrollIntoView({ behavior: 'smooth' });
+      }
+  </script>
+
+</body>
+</html>
