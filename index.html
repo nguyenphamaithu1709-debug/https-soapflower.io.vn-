@@ -536,13 +536,16 @@
 
         <!-- Khung Form Đặt Hàng -->
         <div class="bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-8 border border-[#DAC9B7] shadow-md">
-          <form onsubmit="handleOrderSubmit(event)" class="space-y-4">
+          <form name="don-hang-bibi-flower" method="POST" data-netlify="true" onsubmit="handleOrderSubmit(event)" class="space-y-4">
+            <!-- Thẻ ẩn bắt buộc để Netlify nhận diện tên form -->
+             <input type="hidden" name="form-name" value="don-hang-bibi-flower" />
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Họ và tên của bạn *</label>
                 <input 
                   type="text" 
+                  name="ho_ten"
                   required 
                   placeholder="Ví dụ: Nguyễn Văn A"
                   class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
@@ -551,7 +554,8 @@
               <div>
                 <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Số điện thoại nhận hàng *</label>
                 <input 
-                  type="tel" 
+                  type="tel"
+                  name="so_dien_thoai" 
                   required 
                   placeholder="Ví dụ: 0345573574"
                   class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
@@ -563,6 +567,7 @@
               <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Địa chỉ giao hàng *</label>
               <input 
                 type="text" 
+                name="dia_chi"
                 required 
                 placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."
                 class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
@@ -571,7 +576,7 @@
 
             <div>
               <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Danh mục / Mẫu hoa bạn quan tâm *</label>
-              <select class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition">
+              <select name="mau_hoa" class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition">
                 <option value="cat1">Danh mục: Bó Hoa 1 - 3 Bông (Mini)</option>
                 <option value="cat2" selected>Danh mục: Hoa Sáp & Hoa Lụa Cao Cấp</option>
                 <option value="cat3">Danh mục: Hoa Bánh Kẹo & Quà Tặng</option>
@@ -587,6 +592,7 @@
               <label class="block text-[11px] font-semibold uppercase tracking-wider text-[#5C4D46] mb-1">Nội dung ghi trên thiệp chúc mừng (nếu có)</label>
               <textarea 
                 rows="2" 
+                name="loi_chuc"
                 placeholder="Ví dụ: Chúc mừng sinh nhật, chúc bạn luôn vui vẻ và hạnh phúc..."
                 class="w-full px-3.5 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-sm focus:outline-none focus:border-[#B78353] focus:ring-1 focus:ring-[#B78353] transition"
               ></textarea>
@@ -614,6 +620,34 @@
             <p class="text-xs text-[#63534B] mt-1">Bibi Flower đã áp dụng voucher giảm 15% - 20% cho bạn và sẽ gọi điện qua số điện thoại trên trong ít phút.</p>
           </div>
 
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== PHẦN 7: GOOGLE FORM KHẢO SÁT NHU CẦU ==================== -->
+    <section id="khao-sat" class="py-12 sm:py-20 bg-[#F3ECE2] border-t border-[#E3D4C4]">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6">
+
+        <div class="text-center space-y-2 mb-8">
+          <div class="inline-block bg-[#8C5D33] text-white text-[11px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-2">
+            Nhận Ưu Đãi & Tư Vấn
+          </div>
+          <h2 class="font-serif-luxury text-2xl sm:text-4xl text-[#332722] font-semibold balance-text">
+            Khách Ơi, Chia Sẻ Nhu Cầu Với Bibi Flower Nha
+          </h2>
+          <p class="text-[#6D5D55] text-xs sm:text-sm max-w-md mx-auto balance-text">
+            Khách điền giúp em vài câu ngắn để em tư vấn đúng mẫu hoa và gửi ưu đãi cho khách nha. Thông tin chỉ dùng để liên hệ tư vấn thôi ạ.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-3 sm:p-6 border border-[#DAC9B7] shadow-md">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLScH0SLl-8MRoR-9JdC9gs8g8GgSMmuxUe6HjLW3x3DOD90QCg/viewform?embedded=true"
+            title="Form nhận ưu đãi và tư vấn Bibi Flower"
+            style="width:100%;height:1650px;border:0;"
+            loading="lazy"
+            frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
         </div>
 
       </div>
@@ -686,13 +720,138 @@
   <script>
     function handleOrderSubmit(event) {
       event.preventDefault();
-      const successDiv = document.getElementById('orderSuccessMessage');
+      const myForm = event.target;
+      const formData = new FormData(myForm);
+
+      fetch("/", {
+       method: "POST",
+       headers: { "Content-Type": "application/x-www-form-urlencoded" },
+       body: new URLSearchParams(formData).toString()
+      })
+       .then(() => {
+        // Hiện bảng thông báo thành công màu cam ngay trên web
+       const successDiv = document.getElementById('orderSuccessMessage');
+       if (successDiv) {
+          successDiv.classList.remove('hidden');
+          successDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+        myForm.reset(); // Xóa sạch ô nhập sau khi gửi xong
+      })
+      .catch((error) => {
+        alert("Có lỗi xảy ra khi gửi đơn, vui lòng thử lại!");
+        console.error(error);
+      });
+      }
       if (successDiv) {
         successDiv.classList.remove('hidden');
         successDiv.scrollIntoView({ behavior: 'smooth' });
       }
-    }
   </script>
 
+
+  <!-- ==================== CHATBOT BIBI FLOWER ==================== -->
+  <style>
+    .bbc-launch{position:fixed;right:1rem;bottom:5rem;z-index:60;width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;background:var(--primary-caramel,#B78353);color:#fff;box-shadow:0 8px 22px -6px rgba(87,59,39,.45);display:flex;align-items:center;justify-content:center;transition:background .25s,transform .2s}
+    .bbc-launch:hover{background:var(--primary-hover,#A16F41)}
+    .bbc-launch:active{transform:scale(.95)}
+    .bbc-launch svg{width:26px;height:26px}
+    .bbc-tip{position:fixed;right:4.6rem;bottom:5.6rem;z-index:60;background:#fff;color:var(--text-main,#332722);border:1px solid var(--border-warm,#EADBCC);border-radius:14px;padding:.55rem .8rem;font-size:12.5px;box-shadow:0 8px 22px -8px rgba(87,59,39,.25);cursor:pointer;max-width:200px}
+    .bbc-win{position:fixed;right:1rem;bottom:9.2rem;z-index:60;width:360px;max-width:calc(100vw - 2rem);height:min(520px,calc(100vh - 11rem));background:var(--bg-warm,#FAF6F0);border:1px solid var(--border-warm,#EADBCC);border-radius:18px;box-shadow:0 20px 44px -12px rgba(87,59,39,.35);display:none;flex-direction:column;overflow:hidden;font-size:14px}
+    .bbc-win.open{display:flex}
+    .bbc-head{background:var(--primary-caramel,#B78353);color:#fff;padding:.8rem 1rem;display:flex;align-items:center;justify-content:space-between}
+    .bbc-head b{font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;font-weight:700;line-height:1}
+    .bbc-head small{display:block;font-size:11px;opacity:.9;margin-top:2px}
+    .bbc-x{background:none;border:0;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:0 .25rem}
+    .bbc-msgs{flex:1;overflow-y:auto;padding:.9rem;display:flex;flex-direction:column;gap:.55rem}
+    .bbc-m{max-width:86%;padding:.55rem .8rem;border-radius:14px;line-height:1.5;white-space:pre-line;word-wrap:break-word}
+    .bbc-bot{align-self:flex-start;background:#fff;color:var(--text-main,#332722);border:1px solid var(--border-warm,#EADBCC);border-bottom-left-radius:4px}
+    .bbc-me{align-self:flex-end;background:var(--primary-caramel,#B78353);color:#fff;border-bottom-right-radius:4px}
+    .bbc-btn{display:inline-block;align-self:flex-start;padding:.55rem .95rem;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none;background:var(--text-main,#332722);color:#fff;transition:background .25s}
+    .bbc-btn:hover{background:#1f1714}
+    .bbc-btn.alt{background:#fff;color:var(--primary-hover,#A16F41);border:1px solid var(--primary-caramel,#B78353)}
+    .bbc-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+    .bbc-chip{background:var(--bg-cream,#F3ECE2);color:var(--text-main,#332722);border:1px solid var(--border-warm,#EADBCC);border-radius:999px;padding:.35rem .75rem;font-size:12.5px;cursor:pointer;font-family:inherit}
+    .bbc-chip:hover{background:var(--border-warm,#EADBCC)}
+    .bbc-dots{display:flex;gap:4px;padding:.7rem .85rem}
+    .bbc-dots i{width:6px;height:6px;border-radius:50%;background:var(--text-muted,#7A6C65);animation:bbcb 1s infinite}
+    .bbc-dots i:nth-child(2){animation-delay:.15s}.bbc-dots i:nth-child(3){animation-delay:.3s}
+    @keyframes bbcb{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+    .bbc-form{display:flex;gap:.5rem;padding:.65rem;border-top:1px solid var(--border-warm,#EADBCC);background:#fff}
+    .bbc-form input{flex:1;border:1px solid var(--border-warm,#EADBCC);border-radius:999px;padding:.55rem .9rem;font:inherit;font-size:14px;color:var(--text-main,#332722);background:var(--bg-warm,#FAF6F0);outline:none;min-width:0}
+    .bbc-form input:focus{border-color:var(--primary-caramel,#B78353)}
+    .bbc-form button{border:0;border-radius:999px;background:var(--primary-caramel,#B78353);color:#fff;padding:0 1rem;font-weight:600;cursor:pointer;font-family:inherit}
+    .bbc-form button:hover{background:var(--primary-hover,#A16F41)}
+    @media(max-width:480px){.bbc-win{right:.5rem;max-width:calc(100vw - 1rem);bottom:9rem}.bbc-tip{display:none}}
+  </style>
+
+  <button class="bbc-launch" id="bbcLaunch" aria-label="Chat với Bibi Flower" title="Chat với Bibi Flower">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h8M8 14h5m-9 6l1.6-3.4A8 8 0 1112 20a8 8 0 01-3.4-.7L4 20z"/></svg>
+  </button>
+  <div class="bbc-tip" id="bbcTip">Khách cần em tư vấn không ạ? 💐</div>
+  <div class="bbc-win" id="bbcWin" role="dialog" aria-label="Chat tư vấn Bibi Flower">
+    <div class="bbc-head"><div><b>Bibi Flower</b><small>Em tư vấn hoa sáp, hoa lụa cho khách nha</small></div><button class="bbc-x" id="bbcClose" aria-label="Đóng">×</button></div>
+    <div class="bbc-msgs" id="bbcMsgs"></div>
+    <form class="bbc-form" id="bbcForm" autocomplete="off"><input id="bbcIn" type="text" placeholder="Khách nhắn em ở đây nha..." aria-label="Tin nhắn"><button type="submit">Gửi</button></form>
+  </div>
+
+  <script>
+  (function(){
+    var FORM='#dat-hang', ZALO='https://zalo.me/0345573574';
+    var $=function(i){return document.getElementById(i)};
+    var win=$('bbcWin'),msgs=$('bbcMsgs'),input=$('bbcIn'),tip=$('bbcTip'),started=false;
+    var BF={t:'Điền form nhận ưu đãi 💐',href:FORM,form:1};
+    var FORM_SOFT={t:'Điền form để em tư vấn 💐',href:FORM,form:1};
+    var R={
+      greet:{a:'Bibi Flower xin chào khách ơi 💐\nEm chuyên hoa sáp thơm và hoa lụa, bán lẻ hay bán sỉ đều được nha. Khách đang tìm hoa tặng dịp nào để em tư vấn mẫu hợp cho khách ạ?'},
+      price:{a:'Dạ giá tùy mẫu và số lượng khách lấy nha. Khách cho em biết mình thích mẫu nào, cần mấy bó, em báo giá liền cho lẹ ạ 💐',b:[FORM_SOFT]},
+      fresh:{a:'Hoa sáp không sợ héo nè khách ơi 🌸 Hoa tươi chỉ ngắm được vài ngày, còn hoa sáp để trên bàn làm việc hay góc phòng vẫn xinh, lại thơm dịu nhẹ nữa. Cận ngày lễ khách cũng đỡ lo hoa tươi lên giá hay dập nát nha.'},
+      durable:{a:'Hoa sáp để được khoảng 3 đến 5 năm nha khách. Cánh hoa mềm, giữ form đẹp, khách tặng xong người nhận để làm kỷ niệm được lâu luôn ạ 💐'},
+      scent:{a:'Có thơm nha khách, mà thơm dịu nhẹ thôi chứ không nồng đâu ạ. Hương làm từ xà phòng thiên nhiên nên để trong phòng thấy thư thái lắm nè 😘'},
+      ship:{a:'Bên em có giao hỏa tốc trong khoảng 1 đến 2 giờ, giao theo lịch hẹn của khách nha. Khách nhắn em địa chỉ và giờ cần nhận để em sắp xếp cho kịp ạ 💐\nPhí ship tùy địa chỉ, khách gửi em địa chỉ em báo liền nha.'},
+      promo:{a:'Có nè khách ơi 😘 Khách đặt hoa trên web được giảm 15% đến 20%, còn được tặng kèm túi xách trong suốt và thiệp chúc mừng nữa ạ. Khách điền form em lên đơn cho nha.',b:[BF]},
+      whole:{a:'Được chứ khách ơi, mua sỉ số lượng bao nhiêu em cũng cân tất ạ 💐 Khách cho em biết mình cần mẫu nào, số lượng bao nhiêu, và cần nhận ngày nào, em báo giá sỉ cho khách nha. Khách mua cho lớp, công ty hay sự kiện đều nhận hết nè.',b:[{t:'Nhắn Zalo cho em 😘',href:ZALO},FORM_SOFT]},
+      card:{a:'Có nha khách, em viết thiệp miễn phí theo đúng lời chúc của khách luôn ạ 💐 Khách nhắn em lời chúc muốn gửi, hoặc ghi vào ô thiệp trong form cũng được nha.'},
+      trust:{a:'Khách yên tâm nha, hình bên em là hình tự chụp thật 100%. Khách nhận hàng được đồng kiểm, ưng ý mới thanh toán cho shipper ạ. Nếu hoa bị móp méo khi vận chuyển, em đổi mới 1-1 trong 48 giờ nha 😘'},
+      teacher:{a:'Tặng thầy cô thì mẫu bó hoa mini 1 đến 3 bông rất được khách chọn nha, nhỏ xinh, tiện mang tới lớp, mua nhiều cũng nhẹ túi ạ 💐 Còn muốn bó lớn hơn thì có hoa sáp, hoa lụa và hộp quà phối hoa. Khách cho em biết ngân sách và số lượng, em gợi ý mẫu hợp cho khách nha. Đặt sớm giúp em để kịp ngày nè 😘',b:[FORM_SOFT]},
+      catalog:{a:'Em có bó mini 1 đến 3 bông, bó hoa sáp và hoa lụa lớn, hộp quà phối hoa, hoa bánh kẹo, giỏ hoa và giỏ trái cây xinh xắn nè 💐 Khách tặng dịp nào, ngân sách khoảng bao nhiêu, em gợi ý mẫu hợp cho khách nha.',b:[{t:'Xem mẫu trên web',href:'#danh-muc',form:1}]},
+      buy:{a:'Dạ em lên đơn cho khách liền nha 😘 Khách điền form giúp em: tên, số điện thoại, địa chỉ nhận hàng, mẫu hoa và lời chúc trên thiệp. Đặt hoa hôm nay khách còn được giảm 15% đến 20% và tặng kèm túi xách trong suốt với thiệp nha ạ.',b:[BF,{t:'Nhắn Zalo cho em',href:ZALO,alt:1}]},
+      later:{a:'Dạ khách cứ thong thả xem nha 💐 Khách chưa biết chọn mẫu hay chưa muốn chốt ngay cũng không sao ạ. Khách điền form ngắn, em gửi hình thật với ưu đãi cho khách xem, không bắt buộc mua đâu nè.',b:[FORM_SOFT]},
+      thanks:{a:'Dạ em cảm ơn khách ơi 😘 Khách cần hỏi thêm gì cứ nhắn em nhé 💐'},
+      fallback:{a:'Câu này em hỏi lại chủ shop rồi báo khách liền nha 💐 Khách để lại thông tin trong form hoặc nhắn Zalo 0345573574 giúp em ạ.',b:[FORM_SOFT,{t:'Nhắn Zalo cho em',href:ZALO,alt:1}]}
+    };
+    var RULES=[
+      ['whole',/\b(si|buon)\b|so luong (lon|nhieu)|lay nhieu|mua nhieu|cho lop|cong ty|su kien/],
+      ['teacher',/thay co|20\/11|20-11|nha giao|giao vien|giang vien/],
+      ['later',/xem them|de (minh|em|toi|mk|tui) (xem|hoi|suy)|chua biet|de sau|de luc khac|de hom khac|hoi (nguoi|ban|chong|vo)|tham khao|chua (muon )?(chot|mua)/],
+      ['buy',/chot|len don|dat (hang|hoa|luon|ngay|nha|cho|\d)|muon (mua|dat|lay)|lay (mau|bo|cai|em)|mua (mau|bo|cai|luon|nha|cho)|\border\b|\bung\b/],
+      ['price',/\bgia\b|bao nhieu|bang gia|\bre (khong|ko)\b/],
+      ['promo',/uu dai|giam gia|khuyen mai|voucher|giam (15|20)|tang kem/],
+      ['durable',/\bben\b|de duoc|\bnam\b|han su dung|bao lau.*(hu|de)|lau (hu|phai)/],
+      ['ship',/\bgiao\b|\bship\b|van chuyen|bao lau|nhan (hang|hoa)|\bgap\b|hoa toc|khi nao/],
+      ['card',/thiep|loi chuc|viet giup/],
+      ['scent',/\bthom\b|\bmui\b|\bhuong\b|\bnong\b/],
+      ['trust',/doi tra|doi (mau|hang)|\bhong\b|\bmop\b|dong kiem|anh that|giong hinh|lua dao|uy tin|an tam|bao hanh|\bloi\b/],
+      ['fresh',/hoa tuoi|khac (gi|cho nao)|khac nhau|hoa sap la|sap la gi|tai sao/],
+      ['catalog',/\bmau\b|loai|san pham|co gi|danh muc|hoa lua|hop qua|banh keo|gio hoa|trai cay|mini|sinh nhat|ky niem|tot nghiep|tang (ai|me|ban|nguoi)/],
+      ['thanks',/cam on|thanks|ok (shop|em|nha)|da (nha|ok)/],
+      ['greet',/^(hi|hello|alo|chao|shop|hoa|co ai|xin chao|a lo)\b|shop oi|con khong|co ban khong/]
+    ];
+    function norm(s){return s.toLowerCase().replace(/đ/g,'d').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ').trim()}
+    function pick(t){var n=norm(t);for(var i=0;i<RULES.length;i++){if(RULES[i][1].test(n))return R[RULES[i][0]]}return R.fallback}
+    function add(txt,cls){var d=document.createElement('div');d.className='bbc-m '+cls;d.textContent=txt;msgs.appendChild(d);scroll();return d}
+    function scroll(){msgs.scrollTop=msgs.scrollHeight}
+    function btns(list){(list||[]).forEach(function(b){var a=document.createElement('a');a.className='bbc-btn'+(b.alt?' alt':'');a.textContent=b.t;a.href=b.href;if(b.href.charAt(0)!=='#'){a.target='_blank';a.rel='noopener'}if(b.form){a.addEventListener('click',function(){win.classList.remove('open')})}msgs.appendChild(a)});scroll()}
+    function chips(){var w=document.createElement('div');w.className='bbc-chips';['Hoa tặng thầy cô 20/11','Giá bao nhiêu?','Mua sỉ','Ưu đãi','Giao hàng nhanh không?'].forEach(function(t){var c=document.createElement('button');c.type='button';c.className='bbc-chip';c.textContent=t;c.addEventListener('click',function(){send(t);w.remove()});w.appendChild(c)});msgs.appendChild(w);scroll()}
+    function reply(r){var dots=document.createElement('div');dots.className='bbc-m bbc-bot bbc-dots';dots.innerHTML='<i></i><i></i><i></i>';msgs.appendChild(dots);scroll();setTimeout(function(){dots.remove();add(r.a,'bbc-bot');btns(r.b)},650)}
+    function send(t){t=t.trim();if(!t)return;add(t,'bbc-me');reply(pick(t))}
+    function open(){win.classList.add('open');tip.style.display='none';if(!started){started=true;reply(R.greet);setTimeout(chips,1000)}setTimeout(function(){input.focus()},50)}
+    $('bbcLaunch').addEventListener('click',function(){win.classList.contains('open')?win.classList.remove('open'):open()});
+    $('bbcClose').addEventListener('click',function(){win.classList.remove('open')});
+    tip.addEventListener('click',open);
+    $('bbcForm').addEventListener('submit',function(e){e.preventDefault();var v=input.value;input.value='';send(v)});
+    setTimeout(function(){if(!started)tip.style.display='block'},4000);
+    tip.style.display='none';
+  })();
+  </script>
 </body>
 </html>
