@@ -25,6 +25,10 @@
     body {
       font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-warm);
+      background-image: linear-gradient(rgba(250, 246, 240, 0.93), rgba(250, 246, 240, 0.96)), url('hero-bg.jpg');
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
       color: var(--text-main);
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
@@ -101,7 +105,7 @@
   <main>
 
     <!-- ==================== PHẦN 1: HERO SECTION (CĂN GIỮA TOÀN BỘ) ==================== -->
-    <section class="relative pt-10 pb-12 sm:pt-14 sm:pb-20 overflow-hidden">
+    <section class="relative pt-10 pb-12 sm:pt-14 sm:pb-20 overflow-hidden bg-cover bg-center" style="background-image: linear-gradient(rgba(250, 246, 240, 0.88), rgba(250, 246, 240, 0.92)), url('hero-bg.jpg');">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
         
         <!-- H1 Tiêu Đề Chính: CĂN GIỮA, 2 DÒNG -->
@@ -130,7 +134,7 @@
         <div class="mt-10 sm:mt-12 max-w-3xl mx-auto px-1 sm:px-4">
           <div class="aspect-[4/3] sm:aspect-[16/9] rounded-2xl sm:rounded-3xl overflow-hidden bg-[#F2EAE0] border-4 border-white shadow-xl relative group">
             <img 
-              src="images/hero-bouquet.jpg" 
+              src="hero-bg.jpg" onerror="if(this.src.indexOf('images/')===-1){this.src='images/hero-bg.jpg';}" 
               alt="Dàn bó hoa sáp thành phẩm"
               class="w-full h-full object-cover object-center group-hover:scale-105 transition duration-500"
             />
@@ -1258,7 +1262,7 @@
     var BF={t:'Điền form nhận ưu đãi 💐',href:FORM,form:1};
     var FORM_SOFT={t:'Điền form để em tư vấn 💐',href:FORM,form:1};
     var R={
-      greet:{a:'Bibi Flower xin chào khách ơi 💐\nEm chuyên hoa sáp thơm nghệ thuật và hoa lụa cao cấp, bán lẻ hay sỉ đều được ạ. Khách đang tìm hoa tặng dịp lễ nào (20/10, 8/3, Valentine, 20/11, Sinh nhật...) để em gợi ý mẫu đẹp và hợp ý nhất cho khách nha?'},
+      greet:{a:'Bibi Flower xin chào khách ơi 💐\nEm chuyên hoa sáp thơm nghệ thuật và hoa lụa cao cấp, mua lẻ hay mua sỉ số lượng nhiều đều được ạ. Khách đang tìm hoa tặng dịp lễ nào (20/10, 8/3, Valentine, 20/11, Sinh nhật...) để em gợi ý mẫu đẹp và hợp ý nhất cho khách nha?'},
       women:{a:'Dịp 20/10 và 8/3 tôn vinh phái đẹp nè khách ơi 🌸\n- Tặng Mẹ/Người lớn tuổi: Bó hoa sáp tone đỏ nhung hoặc tím pastel sang trọng, bền 3-5 năm để bàn ngắm mỗi ngày vừa đẹp vừa thơm.\n- Tặng Vợ/Người yêu: Bó Trái Tim Đỏ Nhũ hoặc Bó Nơ Lưới Ren Hàn Quốc ngọt ngào, tặng kèm túi trong suốt sang chảnh.\n- Tặng đồng nghiệp/cô giáo/tập thể: Bó mini 1-3 bông nhỏ xinh, thanh lịch mà tiết kiệm (từ 45k) 💐\nKhách đang muốn tặng ai để em gợi ý chuẩn nhất nha?',b:[BF,{t:'Xem mẫu hoa hot',href:'#danh-muc',form:1}]},
       val:{a:'Valentine 14/2 thì hoa hồng sáp đỏ luôn là biểu tượng tình yêu nồng cháy số 1 nè khách ❤️\nBên em có Bó Hoa Sáp Trái Tim Lãng Mạn (phủ nhũ lấp lánh) và Bó Vương Miện Hoàng Gia quý phái. Hoa sáp bền đẹp 3-5 năm mang trọn thông điệp "tình yêu bền lâu vĩnh cửu không tàn phai". Khách cần viết thiệp tỏ tình lãng mạn cứ nhắn em nắn nót viết tay giúp khách nha 😘',b:[BF,{t:'Nhắn Zalo cho em',href:ZALO,alt:1}]},
       bday:{a:'Tặng Sinh Nhật & Kỷ Niệm thì các mẫu Bó Hồng Sáp Nơ Lưới Ren Hàn Quốc hoặc Hộp Quà Hoa Sáp nắp kính là siêu chuẩn bài luôn ạ 🎂\nVừa lung linh chụp ảnh kỷ niệm, vừa trưng bàn làm việc 3-5 năm thơm mát. Khách có thể chọn bó mix bánh kẹo hoặc gắn thêm đèn led nhấp nháy lung linh nữa nha!',b:[BF,{t:'Xem mẫu trên web',href:'#danh-muc',form:1}]},
@@ -1394,13 +1398,24 @@
         max-height: calc(100dvh - 140px);
       }
     }
+      /* Style riêng đảm bảo Modal danh mục luôn mở chuẩn xác trên mọi thiết bị */
+    #cat-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      background: rgba(30, 20, 15, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+    #cat-modal-overlay.cat-open {
+      display: flex !important;
+    }
   </style>
 
-  <script>
-    
-
-
-  
   <!-- ==================== POPUP XEM MẪU HOA THEO TỪNG DANH MỤC ==================== -->
   <div id="cat-modal-overlay" class="fixed inset-0 z-[9990] bg-black/60 hidden items-end sm:items-center justify-center p-0 sm:p-4 backdrop-blur-xs transition duration-300" onclick="if(event.target===this)closeCategoryModal()">
     <div id="cat-modal-box" class="bg-[#FAF6F0] w-full max-w-4xl max-h-[92vh] max-h-[92dvh] overflow-y-auto rounded-t-3xl sm:rounded-3xl border border-[#EADBCC] shadow-2xl p-4 sm:p-6 relative flex flex-col">
@@ -1522,16 +1537,21 @@
       // Mở modal
       var overlay = document.getElementById('cat-modal-overlay');
       overlay.classList.remove('hidden');
-      overlay.classList.add('flex');
+      overlay.classList.add('cat-open');
+      overlay.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     }
 
     function closeCategoryModal() {
       var overlay = document.getElementById('cat-modal-overlay');
+      overlay.classList.remove('cat-open');
       overlay.classList.add('hidden');
-      overlay.classList.remove('flex');
+      overlay.style.display = 'none';
       document.body.style.overflow = '';
     }
+
+    window.openCategoryModal = openCategoryModal;
+    window.closeCategoryModal = closeCategoryModal;
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeCategoryModal();
