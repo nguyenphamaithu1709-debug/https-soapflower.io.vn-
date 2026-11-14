@@ -716,7 +716,7 @@
             <a href="https://zalo.me/0345573574" target="_blank" rel="noopener" class="text-xs bg-[#FAF3EB] text-[#8C5D33] hover:bg-[#8C5D33] hover:text-white px-4 py-2 rounded-full font-semibold border border-[#E2D5C7] transition">
               Nhắn Zalo 0345573574
             </a>
-            <a href="#danh-muc" class="text-xs btn-caramel px-4 py-2 rounded-full font-semibold shadow-sm">
+            <a href="#nhan-uu-dai" class="text-xs btn-caramel px-4 py-2 rounded-full font-semibold shadow-sm">
               Điền Form Nhận Tư Vấn
             </a>
           </div>
@@ -764,15 +764,113 @@
               🚚
             </div>
             <h4 class="font-semibold text-xs sm:text-sm text-[#332722]">Giao Hàng Free Ship</h4>
+            <p class="text-[11px] sm:text-xs text-[#7A6C65]">Hỗ trợ Free Ship cho mọi đơn đặt hôm nay.</p>
           </div>
 
         </div>
       </div>
     </section>
 
-    
+    <!-- ==================== PHẦN 6: FORM ĐĂNG KÝ NHẬN VOUCHER 15% - 20% & TƯ VẤN MẪU ==================== -->
+    <section id="nhan-uu-dai" class="py-12 sm:py-16 bg-[#F3ECE2] border-t border-[#E4D7C8] px-4 sm:px-6 scroll-mt-16">
+      <div id="claim-voucher" class="max-w-3xl mx-auto bg-white rounded-2xl sm:rounded-3xl p-5 sm:p-9 shadow-sm border border-[#E2D5C7]">
+        
+        <div class="text-center max-w-lg mx-auto mb-6 sm:mb-8">
+          <span class="inline-block px-3.5 py-1 bg-[#FAF3EB] text-[#8C5D33] border border-[#EADBCC] text-[11px] font-bold rounded-full uppercase tracking-wider mb-2">Ưu đãi khách ghé web hôm nay</span>
+          <h3 class="font-serif-luxury text-2xl sm:text-3xl font-semibold text-[#332722] leading-snug">
+            Để Lại Thông Tin – Nhận Mã Giảm 15% - 20% &amp; Tư Vấn Mẫu Hoa Hợp Ý 💐
+          </h3>
+          <p class="text-xs text-[#7A6C65] mt-2 leading-relaxed">
+            Khách điền giúp em vài dòng ngắn nha. Em gửi ngay mã giảm giá <strong class="text-[#8C5D33]">BIBI15NEW</strong> cùng mẹo chọn hoa bền đẹp 3 - 5 năm qua Email và Zalo cho khách liền nè 😘
+          </p>
+        </div>
 
-    
+        <form id="bibi-waitlist-form" onsubmit="handleWaitlistSubmit(event)" class="space-y-4" novalidate>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-[#5C4D46] mb-1">Họ và tên của khách *</label>
+              <input
+                type="text"
+                name="fullname"
+                required
+                placeholder="Ví dụ: Nguyễn Phương Linh"
+                class="w-full px-4 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-[#332722] text-xs sm:text-sm focus:outline-none focus:border-[#B78353] focus:bg-white transition"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#5C4D46] mb-1">Số điện thoại / Zalo của khách *</label>
+              <input
+                type="tel"
+                name="phone"
+                required
+                inputmode="numeric"
+                maxlength="12"
+                placeholder="Ví dụ: 0345573574"
+                class="w-full px-4 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-[#332722] text-xs sm:text-sm focus:outline-none focus:border-[#B78353] focus:bg-white transition"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-[#5C4D46] mb-1">Email nhận mã ưu đãi &amp; mẹo chọn hoa *</label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Ví dụ: linh@gmail.com"
+                class="w-full px-4 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-[#332722] text-xs sm:text-sm focus:outline-none focus:border-[#B78353] focus:bg-white transition"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-[#5C4D46] mb-1">Khách đang tìm hoa cho dịp nào ạ?</label>
+              <select
+                name="occasion"
+                class="w-full px-4 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-[#332722] text-xs sm:text-sm focus:outline-none focus:border-[#B78353] focus:bg-white transition"
+              >
+                <option value="Tặng Sinh nhật / Kỷ niệm">🎂 Tặng Sinh nhật / Kỷ niệm</option>
+                <option value="Dịp 20/10 & 8/3 (Tặng Mẹ, Vợ, Người yêu)">🌸 Dịp 20/10 &amp; 8/3 (Tặng Mẹ, Vợ, Người yêu)</option>
+                <option value="Dịp Valentine 14/2 / Tỏ tình">❤️ Dịp Valentine 14/2 / Tỏ tình</option>
+                <option value="Dịp 20/11 Tri ân Thầy Cô / Tập thể lớp">🎓 Dịp 20/11 Tri ân Thầy Cô / Tập thể lớp</option>
+                <option value="Lễ Tốt nghiệp / Khai trương / Sự kiện">🌻 Lễ Tốt nghiệp / Khai trương / Sự kiện</option>
+                <option value="Mua sỉ số lượng cho lớp / công ty">💐 Mua sỉ số lượng cho lớp / công ty</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-[#5C4D46] mb-1">Ghi chú thêm về tone màu, ngân sách hoặc lời chúc trên thiệp (nếu có)</label>
+            <input
+              type="text"
+              name="note"
+              placeholder="Ví dụ: Thích tone hồng pastel tầm 300k, kèm túi trong suốt và đèn LED..."
+              class="w-full px-4 py-3 rounded-xl border border-[#D8C7B5] bg-[#FAF8F5] text-[#332722] text-xs sm:text-sm focus:outline-none focus:border-[#B78353] focus:bg-white transition"
+            />
+          </div>
+
+          <div id="waitlist-err" role="alert" class="hidden p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs font-medium"></div>
+
+          <div class="pt-1">
+            <button type="submit" id="waitlist-submit-btn" class="w-full btn-caramel py-3.5 rounded-full text-xs sm:text-sm font-semibold tracking-wide flex items-center justify-center gap-2 shadow-sm cursor-pointer">
+              <span>Nhận Mã Giảm 15% - 20% &amp; Tư Vấn Ngay</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+
+          <p class="text-center text-[11px] text-[#8C7A70]">
+            💐 Em cam kết bảo mật thông tin của khách, chỉ gửi mã ưu đãi và tư vấn mẫu hoa chỉn chu đúng nhu cầu nha ạ.
+          </p>
+        </form>
+
+        <div id="waitlist-success-box" class="hidden mt-6 p-5 rounded-2xl bg-[#FAF3EB] border border-[#B78353]/50 text-center">
+          <div class="w-10 h-10 rounded-full bg-[#B78353] text-white text-lg font-bold flex items-center justify-center mx-auto mb-2">✓</div>
+          <h4 class="font-serif-luxury text-lg sm:text-xl font-bold text-[#332722]">Em Đã Nhận Thông Tin Của Khách Rồi Nè! 💐</h4>
+          <p class="text-xs sm:text-sm text-[#5C4D46] mt-1">Mã giảm 15% - 20% kèm túi xách trong suốt &amp; thiệp của khách là: <strong class="text-[#8C5D33] text-sm sm:text-base tracking-wider">BIBI15NEW</strong></p>
+          <p class="text-[11px] sm:text-xs text-[#7A6C65] mt-1">Em cũng vừa gửi thư chào mừng kèm mã ưu đãi qua Email của khách rồi nha. Cần gấp khách cứ nhắn Zalo <strong>0345573574</strong> cho em gửi hình thật liền ạ 😘</p>
+        </div>
+
+      </div>
+    </section>
 
   </main>
 
@@ -845,7 +943,7 @@
       <span>SĐT/Zalo: 0345573574</span>
     </a>
     <!-- Nút Nhận Giảm 15-20% -->
-    <a href="#danh-muc" class="bg-[#332722] hover:bg-[#1f1714] text-white px-3.5 py-3 rounded-full shadow-lg text-xs font-semibold tracking-wide transition active:scale-95 hidden sm:inline-block">
+    <a href="#nhan-uu-dai" class="bg-[#332722] hover:bg-[#1f1714] text-white px-3.5 py-3 rounded-full shadow-lg text-xs font-semibold tracking-wide transition active:scale-95 hidden sm:inline-block">
       <span>Giảm 15% - 20%</span>
     </a>
   </div>
@@ -992,17 +1090,16 @@
             .catch(function () {});
         };
 
-        if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") {
-          fetch("/api/order-status/" + encodeURIComponent(orderId))
-            .then(function (r) { return r.json(); })
-            .then(function (data) {
-              if (data && data.paid) { onPaid(); }
-              else { checkGoogleSheet(); }
-            })
-            .catch(checkGoogleSheet);
-        } else {
-          checkGoogleSheet();
-        }
+        var localStatusUrl = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
+          ? ("/api/order-status/" + encodeURIComponent(orderId))
+          : ("http://127.0.0.1:5000/api/order-status/" + encodeURIComponent(orderId));
+        fetch(localStatusUrl)
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data && data.paid) { onPaid(); }
+            else { checkGoogleSheet(); }
+          })
+          .catch(checkGoogleSheet);
       }, 2500);
     }
 
@@ -1085,6 +1182,27 @@
       btn.disabled = true; btn.textContent = "Đang gửi đơn...";
       $("od-err").style.display = "none";
 
+      var notifyLocalOrder = function (orderCode) {
+        var localOrderUrl = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
+          ? "/api/orders"
+          : "http://127.0.0.1:5000/api/orders";
+        fetch(localOrderUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            order_code: orderCode,
+            name: name,
+            phone: phone,
+            email: email,
+            address: address,
+            product: cur.name,
+            qty: qty,
+            total: cur.price * qty,
+            note: "Cỡ " + f.size.value + " | Màu " + f.color.value + " | Đ/c: " + address + (noteText ? " | " + noteText : "")
+          })
+        }).catch(function () {});
+      };
+
       fetch(ORDER_ENDPOINT, { method: "POST", body: data })
         .then(function (r) { return r.json(); })
         .then(function (res) {
@@ -1093,6 +1211,7 @@
           $("od-form").style.display = "none";
           $("od-done").style.display = "block";
           showPay(res.orderId, cur.price * qty);
+          notifyLocalOrder(res.orderId);
           pollPaymentStatus(res.orderId, cur.price * qty);
         })
         .catch(function () {
@@ -1102,9 +1221,84 @@
           $("od-form").style.display = "none";
           $("od-done").style.display = "block";
           showPay(fakeCode, cur.price * qty);
+          notifyLocalOrder(fakeCode);
           pollPaymentStatus(fakeCode, cur.price * qty);
         });
     });
+
+    // Xử lý form đăng ký nhận ưu đãi 15%-20% & kích hoạt chuỗi 3 email tự động (#nhan-uu-dai)
+    window.handleWaitlistSubmit = function (event) {
+      event.preventDefault();
+      var f = event.target;
+      var name = (f.fullname ? f.fullname.value.trim() : "");
+      var phone = (f.phone ? f.phone.value.replace(/[\s.\-]/g, "") : "");
+      var email = (f.email ? f.email.value.trim() : "");
+      var occasion = (f.occasion ? f.occasion.value : "");
+      var note = (f.note ? f.note.value.trim() : "");
+      var errBox = document.getElementById("waitlist-err");
+      var okBox = document.getElementById("waitlist-success-box");
+      var btn = document.getElementById("waitlist-submit-btn");
+
+      var showWLErr = function (msg) {
+        if (!errBox) return;
+        if (msg) {
+          errBox.textContent = "⚠️ " + msg;
+          errBox.classList.remove("hidden");
+        } else {
+          errBox.textContent = "";
+          errBox.classList.add("hidden");
+        }
+      };
+
+      showWLErr("");
+      if (!name || !phone || !email) {
+        showWLErr("Khách điền giúp em đầy đủ Họ tên, Số điện thoại và Email nhận mã ưu đãi nha.");
+        return;
+      }
+      if (!/^0\d{9}$/.test(phone)) {
+        showWLErr("Số điện thoại không hợp lệ: cần có đúng 10 chữ số và bắt đầu bằng số 0 (ví dụ: 0345573574).");
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        showWLErr("Email không hợp lệ: khách vui lòng nhập đúng định dạng email (ví dụ: ten@gmail.com).");
+        return;
+      }
+
+      if (btn) { btn.disabled = true; btn.style.opacity = "0.7"; }
+
+      var payload = {
+        name: name,
+        phone: phone,
+        email: email,
+        occasion: occasion,
+        note: note
+      };
+
+      var postWaitlist = function (url) {
+        return fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+      };
+
+      postWaitlist("/api/waitlist")
+        .then(function (res) {
+          if (res && res.ok) return res.json();
+          return postWaitlist("http://127.0.0.1:5000/api/waitlist").catch(function () {});
+        })
+        .catch(function () {
+          return postWaitlist("http://127.0.0.1:5000/api/waitlist").catch(function () {});
+        })
+        .finally(function () {
+          if (btn) { btn.disabled = false; btn.style.opacity = ""; }
+          f.reset();
+          if (okBox) {
+            okBox.classList.remove("hidden");
+            okBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          }
+        });
+    };
 
     // Xử lý form đặt hàng chính ở giữa trang (#dat-hang)
     window.handleOrderSubmit = function (event) {
@@ -1256,7 +1450,7 @@
 
   <script>
   (function(){
-    var FORM='#danh-muc', ZALO='https://zalo.me/0345573574';
+    var FORM='#nhan-uu-dai', ZALO='https://zalo.me/0345573574';
     var $=function(i){return document.getElementById(i)};
     var win=$('bbcWin'),msgs=$('bbcMsgs'),input=$('bbcIn'),tip=$('bbcTip'),started=false;
     var BF={t:'Điền form nhận ưu đãi 💐',href:FORM,form:1};

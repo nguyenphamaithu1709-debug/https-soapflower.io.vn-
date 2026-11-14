@@ -51,7 +51,7 @@
   .badge{display:inline-block;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;white-space:nowrap}
   .b-physical{background:#fef3c7;color:#92400e}.b-digital{background:#ede9fe;color:#6d28d9}.b-service{background:#ccfbf1;color:#0f766e}
   .s-cho_thanh_toan,.s-pending{background:#fef3c7;color:var(--warn)}.s-da_thanh_toan,.s-success,.s-hoan_thanh{background:#dcfce7;color:var(--ok)}
-  .s-dang_giao{background:#dbeafe;color:#1d4ed8}.s-da_huy{background:#fee2e2;color:var(--bad)}
+  .s-dang_giao,.s-dang_xu_ly{background:#dbeafe;color:#1d4ed8}.s-da_huy,.s-cancelled{background:#fee2e2;color:var(--bad)}
   .stock-0{color:var(--bad);font-weight:700}
   .desc{max-width:280px;color:var(--muted);font-size:13px}
   .b-web{background:#f3ece2;color:#8c5d33;margin-left:6px}
@@ -72,6 +72,8 @@
   textarea{min-height:75px;resize:vertical}
   .row{display:flex;gap:10px}.row>div{flex:1;min-width:0}
   .hint{margin-top:10px;padding:10px 14px;border-radius:10px;font-size:13px;background:var(--brand-l);color:var(--text)}
+  .hint.warn{background:#fef3c7;color:var(--warn)}
+  .hint.bad{background:#fee2e2;color:var(--bad)}
   #err{display:none;margin-top:12px;padding:10px 14px;border-radius:10px;background:#fee2e2;color:var(--bad);font-size:13px}
   .foot{display:flex;justify-content:flex-end;gap:10px;margin-top:20px}
   #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#332722;color:#fff;padding:12px 20px;border-radius:14px;font-size:14px;font-weight:500;z-index:40;opacity:0;pointer-events:none;transition:opacity .2s;max-width:92vw;text-align:center;box-shadow:0 8px 24px rgba(0,0,0,.15)}
@@ -104,7 +106,7 @@
   </div>
   <div id="syncbar">
     <div class="line">
-      <span id="sync-msg"><span class="dot ok"></span><b>Đang kết nối:</b> Google Sheet & brain.db (SePay 24/7)</span>
+      <span id="sync-msg"><span class="dot ok"></span><b>Đang kết nối:</b> Google Sheet &amp; brain.db (SePay 24/7)</span>
       <span class="muted" id="sync-time" style="font-size:12px">Cập nhật lúc: vừa xong</span>
     </div>
   </div>
@@ -131,10 +133,11 @@
   "use strict";
 
   var TYPE = { physical: "Hoa sáp / Hoa lụa", digital: "Sản phẩm số", service: "Dịch vụ" };
-  var STATUS = { cho_thanh_toan: "Chờ thanh toán", pending: "Chờ thanh toán", da_thanh_toan: "Đã thanh toán", success: "Đã thanh toán", hoan_thanh: "Hoàn thành", dang_giao: "Đang giao", da_huy: "Đã hủy" };
+  var STATUS = { cho_thanh_toan: "Chờ thanh toán", pending: "Chờ thanh toán", da_thanh_toan: "Đã thanh toán", success: "Đã thanh toán", hoan_thanh: "Hoàn thành", dang_giao: "Đang giao", dang_xu_ly: "Đang xử lý", da_huy: "Đã hủy", cancelled: "Đã hủy" };
   var state = { products: [], customers: [], orders: [] };
   var current = "products";
   var editing = null;
+  var isLocalApi = false;
 
   var $ = function (id) { return document.getElementById(id); };
   var esc = function (s) {
@@ -145,7 +148,8 @@
   var money = function (n) { return Number(n || 0).toLocaleString("vi-VN") + "đ"; };
   var when = function (s) {
     if (!s) return "";
-    var d = new Date(String(s).replace(" ", "T") + "Z");
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(s))) return esc(s);
+    var d = new Date(String(s).replace(" ", "T") + (String(s).indexOf("Z") === -1 ? "Z" : ""));
     if (isNaN(d)) return esc(s);
     return d.toLocaleString("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
   };
@@ -178,25 +182,32 @@
     { id: 4, name: "Bó Hồng Sáp Nơ Lưới Ren", type: "physical", price: 290000, stock: 20, description: "Thiết kế nơ lưới ren bồng bềnh phong cách Hàn Quốc nhẹ nhàng tinh tế" },
     { id: 5, name: "Bó Hoa Mini 1 - 3 Bông Xinh Xắn", type: "physical", price: 45000, stock: 50, description: "Bó hoa mini nhỏ gọn tiện lợi tặng số lượng nhiều, học sinh - sinh viên" },
     { id: 6, name: "Hộp Quà Hoa Sáp & Hoa Lụa Cao Cấp", type: "physical", price: 420000, stock: 10, description: "Hộp quà nắp kính trong suốt phối hoa sáp và phụ kiện sang trọng" },
-    { id: 7, name: "Gói Cắm Hoa & Thiết Kế Riêng Theo Yêu Cầu", type: "service", price: 150000, stock: null, description: "Dịch vụ tư vấn phối tone màu, mix phụ kiện độc quyền theo sở thích khách hàng" }
+    { id: 7, name: "Gói Cắm Hoa & Thiết Kế Riêng Theo Yêu Cầu", type: "service", price: 150000, stock: 0, description: "Dịch vụ tư vấn phối tone màu, mix phụ kiện độc quyền theo sở thích khách hàng" },
+    { id: 8, name: "Test chuyển khoản thực tế", type: "service", price: 2000, stock: 0, description: "Sản phẩm test nhận tiền tự động 2.000đ qua VietQR/SePay" },
+    { id: 9, name: "Ebook Cẩm Nang Chọn Hoa Theo Dịp & Bảo Quản Hoa Sáp Bền Đẹp 5 Năm", type: "digital", price: 49000, stock: 0, description: "Tài liệu PDF hướng dẫn chọn hoa sáp hợp từng dịp lễ và mẹo giữ hương thơm 5 năm" }
   ];
 
   var DEFAULT_CUSTOMERS = [
-    { id: 1, name: "Nguyễn Phương Linh", phone: "0912345678", email: "linh@gmail.com", zalo: "0912345678", registered_at: "2026-11-13 15:00:00" },
-    { id: 2, name: "Nguyễn Phạm Ái Thư", phone: "0387315820", email: "nguyenphamaithu1709@gmail.com", zalo: "0387315820", registered_at: "2026-11-14 00:45:00" },
-    { id: 3, name: "Trần Bảo Ngọc", phone: "0903123456", email: "baongoc.flower@gmail.com", zalo: "0903123456", registered_at: "2026-11-14 08:30:00" },
-    { id: 4, name: "Lê Hoàng Long", phone: "0938889900", email: "hoanglong@outlook.com", zalo: "0938889900", registered_at: "2026-11-14 10:15:00" }
+    { id: 1, name: "Nguyễn Phương Linh", phone: "0912345678", email: "linh@gmail.com", note: "Khách đặt hoa sinh nhật", created_at: "2026-11-13" },
+    { id: 2, name: "Nguyễn Phạm Ái Thư", phone: "0387315820", email: "nguyenphamaithu1709@gmail.com", note: "Khách thân thiết đặt qua web", created_at: "2026-11-14" },
+    { id: 3, name: "Trần Bảo Ngọc", phone: "0903123456", email: "baongoc.flower@gmail.com", note: "Tặng lễ tốt nghiệp", created_at: "2026-11-14" },
+    { id: 4, name: "Lê Hoàng Long", phone: "0938889900", email: "hoanglong@outlook.com", note: "Đặt sỉ tập thể học sinh", created_at: "2026-11-14" }
   ];
 
   var DEFAULT_ORDERS = [
-    { id: 1, order_code: "BIBI0001", customer_name: "Nguyễn Phương Linh", product_name: "Bó Hồng Sáp Pastel Cầm Tay", product_type: "physical", quantity: 1, amount: 280000, status: "success", order_date: "2026-11-13 15:30:00", shipping_address: "123 Nguyễn Thị Minh Khai, Q.1, TP.HCM", size: "Tiêu chuẩn", color: "Hồng pastel", note: "Kèm thiệp chúc mừng sinh nhật bạn", source: "web" },
-    { id: 2, order_code: "BIBI0002", customer_name: "Nguyễn Phạm Ái Thư", product_name: "Bó Hoa Sáp Trái Tim Lãng Mạn", product_type: "physical", quantity: 1, amount: 350000, status: "pending", order_date: "2026-11-14 01:00:00", shipping_address: "Linh Xuân, TP. Thủ Đức, TP.HCM", size: "Lớn", color: "Đỏ nhũ", note: "Giao buổi chiều sau 15h", source: "web" },
-    { id: 3, order_code: "BIBI0003", customer_name: "Nguyễn Phạm Ái Thư", product_name: "Bó Hoa Sáp Thơm Mix Bông Tuyết", product_type: "physical", quantity: 1, amount: 340000, status: "success", order_date: "2026-11-14 01:10:00", shipping_address: "Linh Xuân, TP. Thủ Đức, TP.HCM", size: "Tiêu chuẩn", color: "Trắng tuyết", note: "Giao đúng hẹn buổi sáng", source: "web" },
-    { id: 4, order_code: "BIBI0004", customer_name: "Trần Bảo Ngọc", product_name: "Bó Hoa Vương Miện Hoàng Gia", product_type: "physical", quantity: 1, amount: 390000, status: "pending", order_date: "2026-11-14 08:45:00", shipping_address: "45 Võ Văn Tần, Q.3, TP.HCM", size: "Tiêu chuẩn", color: "Xanh hoàng gia", note: "Tặng lễ tốt nghiệp", source: "web" },
-    { id: 5, order_code: "BIBI0005", customer_name: "Lê Hoàng Long", product_name: "Bó Hoa Mini 1 - 3 Bông Xinh Xắn", product_type: "physical", quantity: 10, amount: 450000, status: "success", order_date: "2026-11-14 10:30:00", shipping_address: "280 An Dương Vương, Q.5, TP.HCM", size: "Mini", color: "Mix màu", note: "Tặng tập thể học sinh", source: "web" }
+    { id: 1, order_code: "BIBI0001", customer_id: 1, customer_name: "Nguyễn Phương Linh", product_id: 1, product_name: "Bó Hồng Sáp Pastel Cầm Tay", product_type: "physical", quantity: 1, total: 280000, status: "success", created_at: "2026-11-13", note: "[BIBI0001] Đ/c: 123 Nguyễn Thị Minh Khai, Q.1, TP.HCM | Kèm thiệp chúc mừng sinh nhật bạn" },
+    { id: 2, order_code: "BIBI0002", customer_id: 2, customer_name: "Nguyễn Phạm Ái Thư", product_id: 2, product_name: "Bó Hoa Sáp Trái Tim Lãng Mạn", product_type: "physical", quantity: 1, total: 350000, status: "pending", created_at: "2026-11-14", note: "[BIBI0002] Đ/c: Linh Xuân, TP. Thủ Đức, TP.HCM | Giao buổi chiều sau 15h" },
+    { id: 3, order_code: "BIBI0003", customer_id: 2, customer_name: "Nguyễn Phạm Ái Thư", product_id: 3, product_name: "Bó Hoa Vương Miện Hoàng Gia", product_type: "physical", quantity: 1, total: 390000, status: "success", created_at: "2026-11-14", note: "[BIBI0003] Đ/c: Linh Xuân, TP. Thủ Đức, TP.HCM | Giao đúng hẹn buổi sáng" }
   ];
 
+  function extractOrderCode(o) {
+    if (o.order_code) return o.order_code;
+    var m = String(o.note || "").match(/\[([A-Za-z0-9\-_]+)\]/);
+    return m ? m[1] : ("#BIBI" + String(o.id || 1).padStart(4, "0"));
+  }
+
   function loadFromGoogleSheet() {
+    isLocalApi = false;
     return fetch(GOOGLE_SHEET_EXPORT_URL)
       .then(function (r) { return r.json(); })
       .then(function (data) {
@@ -221,8 +232,8 @@
               name: o.name || "Khách web",
               phone: phone,
               email: email,
-              zalo: phone,
-              registered_at: o.time || new Date().toISOString()
+              note: o.address ? ("Đ/c: " + o.address) : "Khách đặt hoa Web",
+              created_at: o.created_at || o.time || new Date().toISOString().slice(0, 10)
             };
           } else if (phone && email && !custMap[phone].email) {
             custMap[phone].email = email;
@@ -231,6 +242,8 @@
           var ptype = "physical";
           if (o.product && (o.product.indexOf("Test") !== -1 || o.product.indexOf("Thiết Kế") !== -1 || o.product.indexOf("Gói") !== -1)) {
             ptype = "service";
+          } else if (o.product && o.product.indexOf("Ebook") !== -1) {
+            ptype = "digital";
           }
 
           return {
@@ -240,18 +253,18 @@
             shipping_address: o.address || "",
             product_name: o.product || "Bó hoa sáp Bibi",
             product_type: ptype,
-            quantity: o.quantity || 1,
+            quantity: o.qty || o.quantity || 1,
+            total: o.total || 0,
             amount: o.total || 0,
             status: isPaid ? "success" : "pending",
             size: o.size || "",
             color: o.color || "",
             note: o.note || "",
-            order_date: o.time || "",
+            created_at: o.created_at || o.time || "",
             source: "web"
           };
         }).reverse();
 
-        // Gộp thêm các đơn mẫu nếu ít đơn
         if (orders.length === 0) {
           orders = DEFAULT_ORDERS;
         }
@@ -280,26 +293,27 @@
   }
 
   function loadAll() {
-    if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") {
-      Promise.all([
-        api("GET", "/api/products"),
-        api("GET", "/api/customers"),
-        api("GET", "/api/orders")
-      ]).then(function (res) {
-        state.products = res[0];
-        state.customers = res[1];
-        state.orders = res[2];
-        var syncMsg = $("sync-msg");
-        if (syncMsg) {
-          syncMsg.innerHTML = '<span class="dot ok"></span>🟢 <b>Đang kết nối:</b> Flask Local API (brain.db)';
-        }
-        render();
-      }).catch(function () {
-        loadFromGoogleSheet();
-      });
-    } else {
-      loadFromGoogleSheet();
-    }
+    return Promise.all([
+      api("GET", "/api/products"),
+      api("GET", "/api/customers"),
+      api("GET", "/api/orders")
+    ]).then(function (res) {
+      isLocalApi = true;
+      state.products = res[0];
+      state.customers = res[1];
+      state.orders = res[2];
+      var syncMsg = $("sync-msg");
+      if (syncMsg) {
+        syncMsg.innerHTML = '<span class="dot ok"></span>🟢 <b>Đang kết nối:</b> Flask Local API (brain.db — ' + state.orders.length + ' đơn hàng)';
+      }
+      var syncTime = $("sync-time");
+      if (syncTime) {
+        syncTime.textContent = "Cập nhật lúc: " + new Date().toLocaleTimeString("vi-VN");
+      }
+      render();
+    }).catch(function () {
+      return loadFromGoogleSheet();
+    });
   }
 
   var TABS = [
@@ -333,40 +347,47 @@
     }
 
     if (current === "products") {
-      var h = '<table><thead><tr><th>Tên hoa / Mẫu quà</th><th>Phân loại</th><th class="num">Giá bán</th><th class="num">Tồn kho</th><th>Mô tả chi tiết</th><th class="act">Thao tác</th></tr></thead><tbody>';
+      var h = '<table><thead><tr><th>ID</th><th>Tên hoa / Mẫu quà</th><th>Phân loại</th><th class="num">Giá bán</th><th class="num">Tồn kho</th><th>Mô tả chi tiết</th><th class="act">Thao tác</th></tr></thead><tbody>';
       items.forEach(function (p) {
-        var st = p.type === "physical" ? (p.stock === 0 ? '<span class="stock-0">Hết hàng</span>' : p.stock) : '<span class="muted">—</span>';
-        h += '<tr><td><b>' + esc(p.name) + '</b></td>' +
+        var st = p.type === "physical" ? (p.stock === 0 ? '<span class="stock-0">Hết hàng (0)</span>' : p.stock) : '<span class="muted">Không áp dụng</span>';
+        h += '<tr><td class="muted">#' + esc(p.id) + '</td><td><b>' + esc(p.name) + '</b></td>' +
           '<td><span class="badge b-' + esc(p.type) + '">' + esc(TYPE[p.type] || p.type) + '</span></td>' +
-          '<td class="num font-semibold text-[#8C5D33]">' + money(p.price) + '</td>' +
+          '<td class="num font-semibold text-[#8C5D33]"><b>' + money(p.price) + '</b></td>' +
           '<td class="num">' + st + '</td>' +
           '<td><div class="desc">' + esc(p.description || "—") + '</div></td>' +
           '<td class="act"><button class="btn ghost sm" data-edit="' + p.id + '">Sửa</button><button class="btn danger sm" data-del="' + p.id + '">Xóa</button></td></tr>';
       });
       list.innerHTML = h + '</tbody></table>';
     } else if (current === "customers") {
-      var h2 = '<table><thead><tr><th>Họ và tên</th><th>Số điện thoại</th><th>Email nhận đơn</th><th>Zalo</th><th>Ngày đăng ký</th><th class="act">Thao tác</th></tr></thead><tbody>';
+      var h2 = '<table><thead><tr><th>ID</th><th>Họ và tên</th><th>Số điện thoại</th><th>Email nhận đơn &amp; ưu đãi</th><th>Ghi chú / Nhu cầu</th><th>Ngày đăng ký</th><th class="act">Thao tác</th></tr></thead><tbody>';
       items.forEach(function (c) {
-        h2 += '<tr><td><b>' + esc(c.name) + '</b></td>' +
-          '<td><a href="tel:' + esc(c.phone) + '" style="color:var(--brand);font-weight:600;text-decoration:none">' + esc(c.phone) + '</a></td>' +
-          '<td>' + (c.email ? '<a href="mailto:' + esc(c.email) + '" style="color:#2563eb;text-decoration:none">' + esc(c.email) + '</a>' : '<span class="muted">—</span>') + '</td>' +
-          '<td>' + (c.zalo ? esc(c.zalo) : '<span class="muted">—</span>') + '</td>' +
-          '<td class="muted">' + when(c.registered_at) + '</td>' +
+        var noteOrZalo = c.note || (c.zalo ? ("Zalo: " + c.zalo) : "");
+        h2 += '<tr><td class="muted">#' + esc(c.id) + '</td><td><b>' + esc(c.name) + '</b></td>' +
+          '<td>' + (c.phone ? '<a href="tel:' + esc(c.phone) + '" style="color:var(--brand);font-weight:600;text-decoration:none">' + esc(c.phone) + '</a>' : '<span class="muted">—</span>') + '</td>' +
+          '<td>' + (c.email ? '<a href="mailto:' + esc(c.email) + '" style="color:#8C5D33;font-weight:600;text-decoration:none">' + esc(c.email) + '</a>' : '<span class="muted">—</span>') + '</td>' +
+          '<td><div class="desc">' + (noteOrZalo ? esc(noteOrZalo) : '<span class="muted">—</span>') + '</div></td>' +
+          '<td class="muted">' + when(c.created_at || c.registered_at) + '</td>' +
           '<td class="act"><button class="btn ghost sm" data-edit="' + c.id + '">Sửa</button><button class="btn danger sm" data-del="' + c.id + '">Xóa</button></td></tr>';
       });
       list.innerHTML = h2 + '</tbody></table>';
     } else if (current === "orders") {
-      var h3 = '<table><thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Mẫu hoa / Sản phẩm</th><th class="num">SL</th><th class="num">Tổng tiền</th><th>Trạng thái</th><th>Địa chỉ & Ghi chú</th><th class="act">Thao tác</th></tr></thead><tbody>';
+      var h3 = '<table><thead><tr><th>Mã đơn</th><th>Khách hàng</th><th>Mẫu hoa / Sản phẩm</th><th class="num">SL</th><th class="num">Tổng tiền</th><th>Trạng thái</th><th>Phương thức &amp; Ghi chú</th><th class="act">Thao tác</th></tr></thead><tbody>';
       items.forEach(function (o) {
         var s = o.status;
-        var sBadge = (s === "success" || s === "da_thanh_toan" || s === "hoan_thanh") ? '<span class="badge s-success">Đã thanh toán (SePay)</span>' : '<span class="badge s-pending">Chờ thanh toán</span>';
-        h3 += '<tr><td><b style="color:var(--brand);letter-spacing:.5px">' + esc(o.order_code) + '</b><span class="badge b-web">web</span><div class="sub muted">' + when(o.order_date) + '</div></td>' +
-          '<td><b>' + esc(o.customer_name) + '</b></td>' +
-          '<td>' + esc(o.product_name) + '<div class="sub muted">' + esc((o.size ? "Size: " + o.size : "") + (o.color ? " | Màu: " + o.color : "")) + '</div></td>' +
+        var sBadge = (s === "success" || s === "da_thanh_toan" || s === "hoan_thanh" || s === "paid")
+          ? '<span class="badge s-success">Đã thanh toán (SePay)</span>'
+          : (s === "da_huy" || s === "cancelled" ? '<span class="badge s-da_huy">Đã hủy</span>' : '<span class="badge s-pending">Chờ thanh toán</span>');
+        var codeDisp = extractOrderCode(o);
+        var totalVal = o.total != null ? o.total : o.amount;
+        var pType = o.product_type || "physical";
+        h3 += '<tr><td><b style="color:var(--brand);letter-spacing:.5px">' + esc(codeDisp) + '</b><span class="badge b-web">web</span><div class="sub muted">' + when(o.created_at || o.order_date) + '</div></td>' +
+          '<td><b>' + esc(o.customer_name || ("Khách #" + o.customer_id)) + '</b>' + (o.customer_phone ? '<div class="sub muted">' + esc(o.customer_phone) + '</div>' : '') + '</td>' +
+          '<td><b>' + esc(o.product_name || ("SP #" + o.product_id)) + '</b> <span class="badge b-' + esc(pType) + '">' + esc(TYPE[pType] || pType) + '</span>' +
+          (o.size || o.color ? '<div class="sub muted">' + esc((o.size ? "Size: " + o.size : "") + (o.color ? " | Màu: " + o.color : "")) + '</div>' : '') + '</td>' +
           '<td class="num">' + esc(o.quantity) + '</td>' +
-          '<td class="num"><b style="color:#8C5D33">' + money(o.amount) + '</b></td>' +
+          '<td class="num"><b style="color:#8C5D33">' + money(totalVal) + '</b></td>' +
           '<td>' + sBadge + '</td>' +
-          '<td><div class="desc">' + esc(o.shipping_address || "—") + '</div>' + (o.note ? '<div class="sub warn">📝 ' + esc(o.note) + '</div>' : '') + '</td>' +
+          '<td><div class="desc">' + esc(o.shipping_address || o.payment_method || "Chuyển khoản QR") + '</div>' + (o.note ? '<div class="sub warn">📝 ' + esc(o.note) + '</div>' : '') + '</td>' +
           '<td class="act"><button class="btn ghost sm" data-edit="' + o.id + '">Sửa</button><button class="btn danger sm" data-del="' + o.id + '">Xóa</button></td></tr>';
       });
       list.innerHTML = h3 + '</tbody></table>';
@@ -383,34 +404,77 @@
 
     if (current === "products") {
       var p = editing || { name: "", type: "physical", price: 280000, stock: 20, description: "" };
-      f.innerHTML = '<label>Tên mẫu hoa / sản phẩm *</label><input name="name" value="' + esc(p.name) + '" required>' +
-        '<div class="row"><div><label>Phân loại</label><select name="type">' +
-        '<option value="physical"' + (p.type === "physical" ? " selected" : "") + '>Hoa sáp / Hoa lụa</option>' +
+      f.innerHTML = '<label>Tên mẫu hoa / sản phẩm *</label><input name="name" id="f-name" value="' + esc(p.name) + '" required>' +
+        '<div class="row"><div><label>Phân loại</label><select name="type" id="f-type">' +
+        '<option value="physical"' + (p.type === "physical" ? " selected" : "") + '>Hoa sáp / Hoa lụa (Vật lý)</option>' +
         '<option value="service"' + (p.type === "service" ? " selected" : "") + '>Dịch vụ thiết kế</option>' +
-        '<option value="digital"' + (p.type === "digital" ? " selected" : "") + '>Sản phẩm số</option></select></div>' +
-        '<div><label>Giá bán (VNĐ) *</label><input name="price" type="number" min="0" step="1000" value="' + esc(p.price) + '" required></div></div>' +
-        '<label>Tồn kho (với hoa sáp / hoa lụa)</label><input name="stock" type="number" min="0" value="' + (p.stock != null ? esc(p.stock) : "") + '">' +
-        '<label>Mô tả chi tiết</label><textarea name="description">' + esc(p.description || "") + '</textarea>';
+        '<option value="digital"' + (p.type === "digital" ? " selected" : "") + '>Sản phẩm số (Ebook)</option></select></div>' +
+        '<div><label>Giá bán (VNĐ) *</label><input name="price" id="f-price" type="number" min="0" step="1000" value="' + esc(p.price) + '" required></div></div>' +
+        '<div id="stock-wrap"><label>Tồn kho (với hoa sáp / hoa lụa)</label><input name="stock" id="f-stock" type="number" min="0" value="' + (p.stock != null ? esc(p.stock) : 0) + '"></div>' +
+        '<div class="hint" id="type-hint"></div>' +
+        '<label>Mô tả chi tiết</label><textarea name="description" id="f-desc">' + esc(p.description || "") + '</textarea>';
+
+      var syncType = function () {
+        var t = $("f-type").value, phys = t === "physical";
+        $("stock-wrap").style.display = phys ? "" : "none";
+        $("type-hint").textContent = phys
+          ? "Sản phẩm vật lý: có quản lý tồn kho và tự động trừ kho khi tạo đơn hàng mới."
+          : "Sản phẩm số / Dịch vụ: không quản lý tồn kho, khi tạo đơn sẽ không trừ kho.";
+      };
+      $("f-type").addEventListener("change", syncType);
+      syncType();
     } else if (current === "customers") {
-      var c = editing || { name: "", phone: "", email: "", zalo: "" };
+      var c = editing || { name: "", phone: "", email: "", note: "" };
       f.innerHTML = '<label>Họ và tên khách hàng *</label><input name="name" value="' + esc(c.name) + '" required>' +
-        '<div class="row"><div><label>Số điện thoại *</label><input name="phone" value="' + esc(c.phone) + '" placeholder="0901234567" required></div>' +
-        '<div><label>Số Zalo</label><input name="zalo" value="' + esc(c.zalo || "") + '"></div></div>' +
-        '<label>Email nhận hóa đơn & voucher</label><input name="email" type="email" value="' + esc(c.email || "") + '" placeholder="ten@gmail.com">';
+        '<div class="row"><div><label>Số điện thoại (10 số) *</label><input name="phone" value="' + esc(c.phone || "") + '" placeholder="0345573574" required></div>' +
+        '<div><label>Email nhận hóa đơn &amp; ưu đãi</label><input name="email" type="email" value="' + esc(c.email || "") + '" placeholder="ten@gmail.com"></div></div>' +
+        '<label>Ghi chú / Nhu cầu tư vấn</label><textarea name="note" placeholder="Ví dụ: Muốn đặt bó trái tim đỏ nhũ tặng sinh nhật...">' + esc(c.note || c.zalo || "") + '</textarea>' +
+        '<div class="hint">Mẹo: Nếu ghi chú có từ "waitlist" hoặc "ưu đãi" kèm email hợp lệ, hệ thống sẽ tự động kích hoạt chuỗi 3 email chăm sóc của Bibi Flower.</div>';
     } else if (current === "orders") {
-      var o = editing || { order_code: "BIBI" + Math.floor(Math.random() * 9000 + 1000), customer_name: "", product_name: "Bó Hồng Sáp Pastel Cầm Tay", quantity: 1, amount: 280000, status: "pending", shipping_address: "", note: "" };
-      f.innerHTML = '<div class="row"><div><label>Mã đơn hàng *</label><input name="order_code" value="' + esc(o.order_code) + '" required></div>' +
-        '<div><label>Trạng thái</label><select name="status">' +
+      var o = editing || { customer_id: (state.customers[0] && state.customers[0].id) || 1, product_id: (state.products[0] && state.products[0].id) || 1, quantity: 1, total: 280000, status: "pending", payment_method: "Chuyển khoản QR (SePay)", note: "" };
+      var custOpts = state.customers.map(function (c) {
+        return '<option value="' + c.id + '"' + (Number(c.id) === Number(o.customer_id) ? " selected" : "") + '>' + esc(c.name + " (" + (c.phone || c.email || "#" + c.id) + ")") + '</option>';
+      }).join("");
+      var prodOpts = state.products.map(function (p) {
+        var stockTxt = p.type === "physical" ? (", kho còn " + p.stock) : " (không trừ kho)";
+        return '<option value="' + p.id + '"' + (Number(p.id) === Number(o.product_id) ? " selected" : "") + '>' + esc(p.name + " – " + money(p.price) + stockTxt) + '</option>';
+      }).join("");
+
+      f.innerHTML = '<label>Khách hàng *</label><select name="customer_id" id="f-cus">' + custOpts + '</select>' +
+        '<label>Mẫu hoa / Sản phẩm *</label><select name="product_id" id="f-prod">' + prodOpts + '</select>' +
+        '<div class="row"><div><label>Số lượng *</label><input name="quantity" id="f-qty" type="number" min="1" value="' + esc(o.quantity || 1) + '" required></div>' +
+        '<div><label>Tổng tiền (VNĐ) *</label><input name="total" id="f-total" type="number" min="0" step="1000" value="' + esc(o.total != null ? o.total : (o.amount || 0)) + '" required></div></div>' +
+        '<div class="row"><div><label>Trạng thái thanh toán</label><select name="status">' +
         '<option value="pending"' + (o.status === "pending" || o.status === "cho_thanh_toan" ? " selected" : "") + '>Chờ thanh toán</option>' +
         '<option value="success"' + (o.status === "success" || o.status === "da_thanh_toan" || o.status === "hoan_thanh" ? " selected" : "") + '>Đã thanh toán (SePay)</option>' +
-        '<option value="dang_giao"' + (o.status === "dang_giao" ? " selected" : "") + '>Đang giao hàng</option>' +
-        '<option value="da_huy"' + (o.status === "da_huy" ? " selected" : "") + '>Đã hủy</option></select></div></div>' +
-        '<label>Họ tên khách *</label><input name="customer_name" value="' + esc(o.customer_name) + '" required>' +
-        '<div class="row"><div><label>Mẫu hoa</label><input name="product_name" value="' + esc(o.product_name) + '" required></div>' +
-        '<div><label>Số lượng</label><input name="quantity" type="number" min="1" value="' + esc(o.quantity) + '" required></div>' +
-        '<div><label>Tổng tiền</label><input name="amount" type="number" min="0" step="1000" value="' + esc(o.amount) + '" required></div></div>' +
-        '<label>Địa chỉ giao hàng</label><textarea name="shipping_address">' + esc(o.shipping_address || "") + '</textarea>' +
-        '<label>Lời chúc thiệp / Ghi chú</label><input name="note" value="' + esc(o.note || "") + '">';
+        '<option value="dang_xu_ly"' + (o.status === "dang_xu_ly" || o.status === "dang_giao" ? " selected" : "") + '>Đang giao hàng</option>' +
+        '<option value="cancelled"' + (o.status === "cancelled" || o.status === "da_huy" ? " selected" : "") + '>Đã hủy</option></select></div>' +
+        '<div><label>Phương thức thanh toán</label><input name="payment_method" value="' + esc(o.payment_method || "Chuyển khoản QR (SePay)") + '"></div></div>' +
+        '<label>Địa chỉ giao hoa &amp; Lời chúc trên thiệp</label><textarea name="note" placeholder="Địa chỉ nhận hàng, giờ giao, lời chúc viết thiệp...">' + esc(o.note || o.shipping_address || "") + '</textarea>' +
+        '<div class="hint" id="stock-hint"></div>';
+
+      var dirtyTotal = !!editing;
+      $("f-total").addEventListener("input", function () { dirtyTotal = true; });
+      var updOrderHint = function () {
+        var p = byId(state.products, $("f-prod").value);
+        var q = parseInt($("f-qty").value, 10) || 0;
+        var h = $("stock-hint");
+        if (!p) return;
+        if (!dirtyTotal && q > 0) $("f-total").value = p.price * q;
+        if (p.type !== "physical") {
+          h.className = "hint";
+          h.textContent = (TYPE[p.type] || "Dịch vụ/Số") + ": không trừ tồn kho. Hệ thống sẽ tự động gửi email xác nhận đơn hàng cho khách.";
+        } else if (!editing && q > p.stock) {
+          h.className = "hint bad";
+          h.textContent = "⚠️ Không đủ hàng trong kho: chỉ còn " + p.stock + " sản phẩm (yêu cầu " + q + ").";
+        } else {
+          h.className = "hint warn";
+          h.textContent = "Sản phẩm vật lý: sẽ tự động trừ " + q + " khỏi tồn kho và gửi email xác nhận đơn hoa cho khách.";
+        }
+      };
+      $("f-prod").addEventListener("change", updOrderHint);
+      $("f-qty").addEventListener("input", updOrderHint);
+      updOrderHint();
     }
 
     $("ov").classList.add("open");
@@ -425,8 +489,15 @@
   $("cancel").onclick = closeModal;
   $("ov").onclick = function (e) { if (e.target === this) closeModal(); };
   $("btn-sync").onclick = function () {
-    toast("Đang đồng bộ đơn hàng từ Google Sheet...", false);
-    loadAll();
+    toast("Đang đồng bộ đơn hàng từ Google Sheet & SePay...", false);
+    if (isLocalApi) {
+      api("POST", "/api/sync", {}).then(function (res) {
+        toast(res && res.state ? res.state.last_result : "Đã đồng bộ thành công!");
+        return loadAll();
+      }).catch(function () { loadAll(); });
+    } else {
+      loadAll();
+    }
   };
 
   document.addEventListener("click", function (e) {
@@ -435,9 +506,18 @@
     var delId = e.target.getAttribute("data-del");
     if (delId) {
       if (!confirm("Bạn có chắc chắn muốn xóa bản ghi này?")) return;
-      state[current] = state[current].filter(function (x) { return x.id !== Number(delId); });
-      render();
-      toast("Đã xóa thành công!");
+      if (isLocalApi) {
+        api("DELETE", "/api/" + current + "/" + Number(delId))
+          .then(function (res) {
+            toast((res && res.message) || "Đã xóa thành công!");
+            return loadAll();
+          })
+          .catch(function (err) { toast(err.message, true); });
+      } else {
+        state[current] = state[current].filter(function (x) { return x.id !== Number(delId); });
+        render();
+        toast("Đã xóa thành công!");
+      }
     }
   });
 
@@ -446,21 +526,50 @@
     var fd = new FormData(this);
     var obj = {};
     fd.forEach(function (v, k) { obj[k] = v; });
+    $("err").style.display = "none";
 
-    if (editing) {
-      Object.assign(editing, obj);
-      toast("Đã cập nhật thành công!");
+    if (isLocalApi) {
+      var btn = $("save");
+      btn.disabled = true;
+      var url = "/api/" + current + (editing ? "/" + editing.id : "");
+      api(editing ? "PUT" : "POST", url, obj)
+        .then(function (res) {
+          closeModal();
+          var msg = (res && res.message) || (editing ? "Đã cập nhật thành công!" : "Đã thêm mới thành công!");
+          if (current === "orders" && !editing && res && res.email_sent_to) {
+            msg += " · Đã gửi email xác nhận tới " + res.email_sent_to;
+          }
+          toast(msg);
+          return loadAll();
+        })
+        .catch(function (err) {
+          $("err").textContent = err.message;
+          $("err").style.display = "block";
+        })
+        .finally(function () {
+          btn.disabled = false;
+        });
     } else {
-      obj.id = (state[current].length ? Math.max.apply(null, state[current].map(function (x) { return x.id; })) : 0) + 1;
-      state[current].unshift(obj);
-      toast("Đã thêm mới thành công!");
+      if (editing) {
+        Object.assign(editing, obj);
+        toast("Đã cập nhật thành công!");
+      } else {
+        obj.id = (state[current].length ? Math.max.apply(null, state[current].map(function (x) { return x.id; })) : 0) + 1;
+        state[current].unshift(obj);
+        toast("Đã thêm mới thành công!");
+      }
+      closeModal();
+      render();
     }
-    closeModal();
-    render();
   };
 
-  // Khởi chạy
+  // Khởi chạy & tự động làm mới mỗi 5 giây
   loadAll();
+  setInterval(function () {
+    if (!$("ov").classList.contains("open")) {
+      loadAll();
+    }
+  }, 5000);
 })();
 </script>
 </body>
