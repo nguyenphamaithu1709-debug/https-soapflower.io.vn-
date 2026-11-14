@@ -1501,7 +1501,7 @@
         card.innerHTML = 
           '<div>' +
             '<div class="aspect-square rounded-lg sm:rounded-xl overflow-hidden bg-[#FAF6F0] mb-2 relative">' +
-              '<img src="images/' + p.img + '" alt="' + p.name + '" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy"/>' +
+              '<img src="images/' + p.img + '" alt="' + p.name + '" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" onerror="if(this.src.indexOf(\'images/\')!==-1){this.src=this.src.replace(\'images/\',\'\');}"/>' +
               '<span class="absolute top-1.5 left-1.5 bg-white/95 text-[#8C5D33] text-[9px] font-bold px-1.5 py-0.5 rounded border border-[#E2D5C7] shadow-xs">' + cat.badge + '</span>' +
             '</div>' +
             '<h4 class="font-medium text-xs sm:text-sm text-[#332722] line-clamp-1 group-hover:text-[#8C5D33] transition" title="' + p.name + '">' + p.name + '</h4>' +
